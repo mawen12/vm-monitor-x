@@ -13,6 +13,8 @@ type Server struct {
 	Port     int
 	Messages chan string
 
+	app *App
+
 	listener   net.Listener
 	connChan   chan net.Conn
 	curClient  *Client
@@ -30,25 +32,29 @@ func NewServer() *Server {
 }
 
 func (server *Server) Init(ctx context.Context) error {
-	app := ctx.Value("app").(*App)
+	server.app = ctx.Value("app").(*App)
 
-	listener, err := net.Listen("tcp", ":0")
+	var err error
+	server.listener, err = net.Listen("tcp", ":0")
 	if err != nil {
 		return fmt.Errorf("Server listen tcp: %v", err.Error())
 	}
-	server.listener = listener
 
-	server.Port = listener.Addr().(*net.TCPAddr).Port
+	server.Port = server.listener.Addr().(*net.TCPAddr).Port
 	log.Println("Server listening on port:", server.Port)
 
 	ctx, cancelFunc := context.WithCancel(context.Background())
 	server.cancelFunc = cancelFunc
 
-	go server.accept(ctx)
+	server.app.Background(func() {
+		server.accept(ctx)
+	})
 
-	go server.handle(ctx)
+	server.app.Background(func() {
+		server.handle(ctx)
+	})
 
-	app.Subscribe(model.JvmSelectedEvent, func(pid string) {
+	server.app.Subscribe(model.JvmSelectedEvent, func(pid string) {
 		server.closeClient()
 	})
 
@@ -85,7 +91,7 @@ func (server *Server) handle(ctx context.Context) {
 			return
 		case conn := <-server.connChan:
 			server.closeClient()
-			server.curClient = NewClient(conn, func(message string) {
+			server.curClient = NewClient(conn, server.app, func(message string) {
 				server.Messages <- message
 			})
 		}

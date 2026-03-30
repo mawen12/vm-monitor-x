@@ -48,10 +48,10 @@ func (cc *CpuChart) onMetrics(metrics model.Metrics) {
 	if len(data) > maxX/2 {
 		data = data[1:]
 	}
+	// record
 	cc.Data[0] = data
 
-	cc.Title = fmt.Sprintf("CPU: %d%", int(metrics.Load))
-	cc.MaxVal = metrics.Max
+	cc.Title = fmt.Sprintf("CPU: %d%%", int(metrics.Load))
 
 	cc.render()
 }

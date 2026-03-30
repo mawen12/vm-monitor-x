@@ -36,21 +36,23 @@ func NewMemChart(eb EventBus.Bus) *MemChart {
 
 func (mc *MemChart) onJvmSelected(pid string) {
 	mc.UsedLine.Data = []float64{}
-	mc.Title = fmt.Sprintf("Memory")
+	mc.Title = "Memory"
 
 	mc.render()
 }
 
 func (mc *MemChart) onMetrics(metrics model.Metrics) {
 	maxX := mc.Bounds().Max.X
-	data := append(mc.UsedLine.Data, metrics.Used)
+	// record
+	data := append(mc.UsedLine.Data, metrics.Memory.Used)
 	if len(data) > maxX/2 {
 		data = data[1:]
 	}
 	mc.UsedLine.Data = data
+	// max value
+	mc.UsedLine.MaxVal = metrics.Memory.Max
 
-	mc.Title = fmt.Sprintf("Used: %d, Max: %d MB", int(metrics.Used), int(metrics.Max))
-	mc.UsedLine.MaxVal = metrics.Max
+	mc.Title = fmt.Sprintf("Used: %d, Max: %d MB", int(metrics.Memory.Used), int(metrics.Memory.Max))
 
 	mc.render()
 }

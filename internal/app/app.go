@@ -47,7 +47,7 @@ func (app *App) Init(jarBytes []byte) error {
 
 	// jvms
 	app.jvms = model.GetJvms()
-	log.Println("Found Jvms: ", app.jvms)
+	log.Printf("Found %d Jvms\n", len(app.jvms))
 
 	// server
 	if err := app.server.Init(ctx); err != nil {
@@ -69,8 +69,8 @@ func (app *App) Init(jarBytes []byte) error {
 	// view
 	app.view = view.NewApp(app.jvms, app.Bus)
 
-	go app.receiveMetrics()
-	go app.checkConnections()
+	app.Background(app.receiveMetrics)
+	app.Background(app.checkConnections)
 
 	return nil
 }
@@ -81,6 +81,16 @@ func (app *App) Run() error {
 
 	app.view.Run()
 	return nil
+}
+
+func (app *App) Background(f func()) {
+	go func() {
+		if err := recover(); err != nil {
+			log.Println("App background error, ", err)
+		}
+
+		f()
+	}()
 }
 
 func (app *App) Close() error {
@@ -117,6 +127,23 @@ func loadJar(jarBytes []byte) (string, error) {
 	return tmpJarPath, nil
 }
 
+func (app *App) onJvmSelected(pid string) {
+	log.Println("Monitoring pid: ", pid)
+	jvm := app.jvms[pid]
+	app.Background(func() {
+		app.attachAgent(jvm, app.jar, app.server.Port)
+	})
+}
+
+func (app *App) attachAgent(jvm model.Jvm, jar string, port int) {
+	err := jvm.AttachAndLoadAgent(jar, strconv.Itoa(port))
+	if err != nil {
+		log.Println("Cannot attach to pid ", jvm.Pid)
+		app.Publish(model.AttachErrEvent, jvm.Pid)
+	}
+	log.Printf("Attach agent to Jvm(%s) success\n", jvm.Pid)
+}
+
 func (app *App) receiveMetrics() {
 	for msg := range app.server.Messages {
 		var metrics model.Metrics
@@ -135,19 +162,5 @@ func (app *App) receiveMetrics() {
 func (app *App) checkConnections() {
 	for addr := range app.server.Connections {
 		log.Println("Jvm connected ", addr)
-	}
-}
-
-func (app *App) onJvmSelected(pid string) {
-	log.Println("Monitoring pid: ", pid)
-	jvm := app.jvms[pid]
-	go app.attachAgent(jvm, app.jar, app.server.Port)
-}
-
-func (app *App) attachAgent(jvm model.Jvm, jar string, port int) {
-	err := jvm.AttachAndLoadAgent(jar, strconv.Itoa(port))
-	if err != nil {
-		log.Println("Cannot attach to pid ", jvm.Pid)
-		app.Publish(model.AttachErrEvent, jvm.Pid)
 	}
 }

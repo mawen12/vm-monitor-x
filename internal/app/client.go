@@ -15,7 +15,7 @@ type Client struct {
 	callback   func(message string)
 }
 
-func NewClient(conn net.Conn, callback func(message string)) *Client {
+func NewClient(conn net.Conn, app *App, callback func(message string)) *Client {
 	ctx, cancel := context.WithCancel(context.Background())
 
 	c := &Client{
@@ -26,7 +26,9 @@ func NewClient(conn net.Conn, callback func(message string)) *Client {
 		callback:   callback,
 	}
 
-	go c.handle(ctx)
+	app.Background(func() {
+		c.handle(ctx)
+	})
 
 	return c
 }
@@ -43,6 +45,7 @@ func (c *Client) handle(ctx context.Context) {
 				log.Println("Client read error", c.addr, " ", err)
 				break
 			}
+			log.Println("Receive message from client:", message)
 			c.callback(message)
 		}
 	}

@@ -1,5 +1,6 @@
 package com.github.mawen12.core;
 
+import com.github.mawen12.model.JMemory;
 import com.github.mawen12.model.JThread;
 import com.github.mawen12.model.Metrics;
 
@@ -9,7 +10,6 @@ import javax.management.MBeanServer;
 import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,19 +24,24 @@ public class Monitor {
     }
 
     public Metrics getMetrics() throws Exception {
-        Runtime rt = Runtime.getRuntime();
-        long usedMem = (rt.totalMemory() - rt.freeMemory())/1024/1024;
-        long maxMem = rt.maxMemory()/1024/1024;
 
         Metrics metrics = new Metrics();
-        metrics.Used = usedMem;
-        metrics.Max = maxMem;
-
+        metrics.Memory = getMemory();
         metrics.Load = getProcessCpuLoad();
-
-        metrics.Time = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        metrics.Time = LocalDateTime.now().getNano();
 
         return metrics;
+    }
+
+    public JMemory getMemory() {
+        Runtime rt = Runtime.getRuntime();
+        long usedMem = (rt.totalMemory() - rt.freeMemory()) / 1024 / 1024;
+        long maxMem = rt.maxMemory() / 1024 / 1024;
+
+        JMemory memory = new JMemory();
+        memory.Used = usedMem;
+        memory.Max = maxMem;
+        return memory;
     }
 
     public double getProcessCpuLoad() throws Exception {
@@ -47,12 +52,12 @@ public class Monitor {
             return 0;
 
         Attribute att = (Attribute) osAttrs.get(0);
-        Double value =  (Double) att.getValue();
+        Double value = (Double) att.getValue();
 
         // usually takes a couple of seconds before we get real values
         if (value == -1.0)
             return 0;
         // returns a percentage value with 1 decimal point precision
-        return ((value * 1000) / 10.0);
+        return Math.round((value * 1000) / 10.0 * 100) / 100.0;
     }
 }

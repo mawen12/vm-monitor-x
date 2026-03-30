@@ -2,23 +2,18 @@ package com.github.mawen12.model;
 
 import com.github.mawen12.utils.Json;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-
 public class Metrics implements Jsonable {
 
-    public long Used;
-
-    public long Max;
+    public JMemory Memory;
 
     public double Load;
 
     public JThreads Threads;
 
-    public String Time;
+    public long Time;
 
     @Override
     public String toJson() {
-        return Json.toJson("Used", Used, "Max", Max, "Load", Load, "Threads", Threads, "Time", Time);
+        return Json.toJson("Memory", Memory, "Load", Load, "Threads", Threads, "Time", Time);
     }
 }
