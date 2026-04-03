@@ -4,7 +4,6 @@ set -euo pipefail
 
 echo "Build and run from Go source"
 
-echo > log
 DIR=`pwd`
 echo "Dir: $DIR"
 
