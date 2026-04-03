@@ -12,6 +12,7 @@
     <modules>
         <module>api</module>
         <module>loader</module>
+        <module>core</module>
     </modules>
 
     <properties>

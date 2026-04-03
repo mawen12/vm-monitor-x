@@ -16,7 +16,7 @@ public class InterceptorChainRouter {
         byMethodName.put(methodName, interceptorChain);
     }
 
-    public InterceptorChain get(String methodName) {
+    public InterceptorChain resolve(String methodName) {
         return byMethodName.get(methodName);
     }
 }
