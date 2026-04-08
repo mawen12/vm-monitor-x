@@ -1,6 +1,7 @@
 package com.github.mawen12.easeagent.core.agent;
 
 import net.bytebuddy.agent.builder.AgentBuilder;
+import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
@@ -13,8 +14,13 @@ public class ForAdviceTransformer implements AgentBuilder.Transformer {
 
     private final ForAdvice advice;
 
-    public ForAdviceTransformer(ElementMatcher.Junction<MethodDescription> methodMatcher) {
-        this.advice = new ForAdvice().include(getClass().getClassLoader()).advice(methodMatcher, CommonInlineAdvice.class.getCanonicalName());
+    public ForAdviceTransformer(ElementMatcher.Junction<MethodDescription> methodMatcher, String adviceKey) {
+        AdviceKeyOffsetMapping.Factory factory = new AdviceKeyOffsetMapping.Factory(adviceKey);
+        Advice.WithCustomMapping customMapping = Advice.withCustomMapping().bind(factory);
+
+        this.advice = new ForAdvice(customMapping)
+                .include(getClass().getClassLoader())
+                .advice(methodMatcher, CommonInlineAdvice.class.getCanonicalName());
     }
 
     @Override

@@ -1,0 +1,18 @@
+package com.github.mawen12.easeagent.core.context;
+
+import com.github.mawen12.easeagent.api.context.Context;
+import com.github.mawen12.easeagent.api.manager.ContextManager;
+
+public class ContextManagerImpl implements ContextManager {
+
+    private static final ThreadLocal<SessionContext> LOCAL_SESSION_CONTEXT = ThreadLocal.withInitial(SessionContext::new);
+
+    public static ContextManager build() {
+        return new ContextManagerImpl();
+    }
+
+    @Override
+    public Context getContext() {
+        return LOCAL_SESSION_CONTEXT.get();
+    }
+}

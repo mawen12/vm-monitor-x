@@ -19,7 +19,8 @@ public class Main {
         JarCache jarCache = JarCache.build(jar);
 
         // 2. build easeagent classloader from lib/
-        List<URL> urls = jarCache.nestedJarUrls("/lib");
+        List<URL> urls = jarCache.nestedJarUrls("lib/");
+        urls.forEach(System.out::println);
         ClassLoader loader = new EaseAgentClassLoader(urls.toArray(new URL[0]));
 
         // 3. register boot/ to bootstrap classloader
@@ -29,7 +30,9 @@ public class Main {
         // 4. init agent
         String bootstrap = jarCache.getManifest().getMainAttributes().getValue("Bootstrap-Class");
         switchLoader(loader, () -> {
-            loader.loadClass(bootstrap).getMethod("premain", String.class, Instrumentation.class, String.class).invoke(null, args, inst, jar.getPath());
+            loader.loadClass(bootstrap)
+                    .getMethod("premain", String.class, Instrumentation.class, String.class)
+                    .invoke(null, args, inst, jar.getPath());
             return null;
         });
     }

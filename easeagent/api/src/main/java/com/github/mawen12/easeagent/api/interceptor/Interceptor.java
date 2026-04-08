@@ -8,6 +8,9 @@ public interface Interceptor {
         return 0;
     }
 
+    default void init() {
+    }
+
     void before(MethodInfo methodInfo, Context ctx);
 
     void after(MethodInfo methodInfo, Context ctx);

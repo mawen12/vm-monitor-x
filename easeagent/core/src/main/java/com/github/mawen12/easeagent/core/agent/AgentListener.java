@@ -9,7 +9,7 @@ public class AgentListener implements AgentBuilder.Listener {
 
     @Override
     public void onDiscovery(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded) {
-        System.out.printf("[agent/listener] onDiscovery %s\n", typeName);
+//        System.out.printf("[agent/listener] onDiscovery %s\n", typeName);
     }
 
     @Override
@@ -19,16 +19,17 @@ public class AgentListener implements AgentBuilder.Listener {
 
     @Override
     public void onIgnored(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded) {
-        System.out.printf("[agent/listener] onIgnored %s\n", typeDescription.getName());
+//        System.out.printf("[agent/listener] onIgnored %s\n", typeDescription.getName());
     }
 
     @Override
     public void onError(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded, Throwable throwable) {
         System.err.printf("[agent/listener] onError %s\n", typeName);
+        throwable.printStackTrace();
     }
 
     @Override
     public void onComplete(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded) {
-        System.out.printf("[agent/listener] onComplete %s\n", typeName);
+//        System.out.printf("[agent/listener] onComplete %s\n", typeName);
     }
 }

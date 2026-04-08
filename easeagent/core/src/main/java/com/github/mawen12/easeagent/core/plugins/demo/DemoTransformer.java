@@ -1,0 +1,44 @@
+package com.github.mawen12.easeagent.core.plugins.demo;
+
+import com.github.mawen12.easeagent.api.interceptor.Interceptor;
+import com.github.mawen12.easeagent.core.agent.AbstractClassTransformer;
+import com.github.mawen12.easeagent.core.utils.Lists;
+import com.github.mawen12.easeagent.core.utils.Sets;
+import net.bytebuddy.description.method.MethodDescription;
+import net.bytebuddy.description.type.TypeDescription;
+import net.bytebuddy.matcher.ElementMatcher;
+import net.bytebuddy.matcher.ElementMatchers;
+
+import java.util.List;
+import java.util.Set;
+
+import static net.bytebuddy.matcher.ElementMatchers.any;
+import static net.bytebuddy.matcher.ElementMatchers.named;
+
+public class DemoTransformer extends AbstractClassTransformer {
+
+    @Override
+    protected String getAdviceKey() {
+        return "Demo";
+    }
+
+    @Override
+    protected List<Interceptor> getInterceptors() {
+        return Lists.of(DemoInterceptor.INSTANCE);
+    }
+
+    @Override
+    public ElementMatcher<ClassLoader> getClassLoaderMatcher() {
+        return any();
+    }
+
+    @Override
+    public ElementMatcher.Junction<TypeDescription> getClassMatcher() {
+        return named("com.demo.HelloWorld");
+    }
+
+    @Override
+    public Set<ElementMatcher.Junction<MethodDescription>> getMethodMatchers() {
+        return Sets.of(named("sayHello"));
+    }
+}
