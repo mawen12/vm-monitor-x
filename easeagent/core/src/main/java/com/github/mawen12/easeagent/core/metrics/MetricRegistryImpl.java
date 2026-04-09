@@ -19,8 +19,9 @@ public class MetricRegistryImpl implements MetricRegistry {
                 .convertRatesTo(TimeUnit.SECONDS)
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
                 .build();
-
         reporter.start(2, TimeUnit.SECONDS);
+
+
     }
 
     public static MetricRegistry build(com.codahale.metrics.MetricRegistry metricRegistry) {

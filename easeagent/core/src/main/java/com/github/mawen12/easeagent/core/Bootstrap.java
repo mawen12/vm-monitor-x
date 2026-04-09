@@ -1,17 +1,22 @@
 package com.github.mawen12.easeagent.core;
 
 import com.github.mawen12.easeagent.api.Agent;
+import com.github.mawen12.easeagent.api.metrics.Metric;
 import com.github.mawen12.easeagent.core.agent.AgentIgnore;
 import com.github.mawen12.easeagent.core.agent.AgentListener;
+import com.github.mawen12.easeagent.core.agent.transformer.ClassTransformer;
 import com.github.mawen12.easeagent.core.context.ContextManagerImpl;
 import com.github.mawen12.easeagent.core.metrics.MetricRegistryManagerImpl;
+import com.github.mawen12.easeagent.core.metrics.MetricServer;
 import com.github.mawen12.easeagent.core.plugins.demo.DemoTransformer;
 import com.github.mawen12.easeagent.core.plugins.jdbc.transformer.JdbcConnectionTransformer;
 import com.github.mawen12.easeagent.core.plugins.jdbc.transformer.JdbcDataSourceTransformer;
 import com.github.mawen12.easeagent.core.plugins.jdbc.transformer.JdbcStatementTransformer;
+import com.github.mawen12.easeagent.core.utils.ServiceLoaderUtils;
 import net.bytebuddy.agent.builder.AgentBuilder;
 
 import java.lang.instrument.Instrumentation;
+import java.util.List;
 
 public class Bootstrap {
 
@@ -24,17 +29,16 @@ public class Bootstrap {
         Agent.contextManager = ContextManagerImpl.build();
         Agent.metricRegistryManager = MetricRegistryManagerImpl.build();
 
+        new MetricServer(19090).start();
+
         AgentBuilder agentBuilder = new AgentBuilder.Default()
                 .with(new AgentListener())
                 .ignore(AgentIgnore.ignored());
 
-        // jdbc
-        agentBuilder = new JdbcDataSourceTransformer().build(agentBuilder);
-        agentBuilder = new JdbcConnectionTransformer().build(agentBuilder);
-        agentBuilder = new JdbcStatementTransformer().build(agentBuilder);
-
-        // demo
-        agentBuilder = new DemoTransformer().build(agentBuilder);
+        List<ClassTransformer> transformers = ServiceLoaderUtils.load(ClassTransformer.class);
+        for (ClassTransformer transformer : transformers) {
+            agentBuilder = transformer.build(agentBuilder);
+        }
 
         agentBuilder.installOn(inst);
     }
