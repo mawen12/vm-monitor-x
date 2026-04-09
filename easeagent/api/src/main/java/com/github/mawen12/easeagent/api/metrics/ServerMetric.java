@@ -1,0 +1,88 @@
+package com.github.mawen12.easeagent.api.metrics;
+
+import com.github.mawen12.easeagent.api.utils.Sets;
+
+import java.math.BigDecimal;
+import java.time.Duration;
+
+import static com.github.mawen12.easeagent.api.metrics.Metric.Field.*;
+import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.DEFAULT;
+import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.ERROR;
+
+public class ServerMetric extends ServiceMetric {
+
+    public ServerMetric(MetricRegistry metricRegistry) {
+        super(metricRegistry, ServerMetric.nameFactory());
+    }
+
+    public void collectMetric(String key, int statusCode, Throwable throwable, long startMillis, long endMillis) {
+        timer(key, DEFAULT).update(Duration.ofMillis(endMillis - startMillis));
+        meter(key, DEFAULT).mark();
+        counter(key, DEFAULT).inc();
+
+        Meter meter = meter(key, DEFAULT);
+        meter.mark();
+        Meter errMeter = meter(key, ERROR);
+
+        if (statusCode >= 400 || throwable != null) {
+            errMeter.mark();
+            counter(key, ERROR).inc();
+        }
+
+        gauge(key, DEFAULT, () -> () -> {
+            BigDecimal m1ErrorPercent = BigDecimal.ZERO;
+            BigDecimal m5ErrorPercent = BigDecimal.ZERO;
+            BigDecimal m15ErrorPercent = BigDecimal.ZERO;
+
+            BigDecimal error = BigDecimal.valueOf(errMeter.getOneMinuteRate()).setScale(5, BigDecimal.ROUND_HALF_DOWN);
+            BigDecimal n = BigDecimal.valueOf(meter.getOneMinuteRate());
+            if (n.compareTo(BigDecimal.ZERO) > 0) {
+                m1ErrorPercent = error.divide(n, 2, BigDecimal.ROUND_HALF_UP);
+            }
+
+            error = BigDecimal.valueOf(errMeter.getFiveMinuteRate()).setScale(5, BigDecimal.ROUND_HALF_DOWN);
+            n = BigDecimal.valueOf(meter.getFiveMinuteRate());
+            if (n.compareTo(BigDecimal.ZERO) > 0) {
+                m5ErrorPercent = error.divide(n, 2, BigDecimal.ROUND_HALF_UP);
+            }
+
+            error = BigDecimal.valueOf(errMeter.getFifteenMinuteRate()).setScale(5, BigDecimal.ROUND_HALF_DOWN);
+            n = BigDecimal.valueOf(meter.getFifteenMinuteRate());
+            if (n.compareTo(BigDecimal.ZERO) > 0) {
+                m5ErrorPercent = error.divide(n, 2, BigDecimal.ROUND_HALF_UP);
+            }
+
+            return new GaugeMetricModel.ErrorPercentModelGauge(m1ErrorPercent, m5ErrorPercent, m15ErrorPercent);
+        });
+    }
+
+    public static NameFactory nameFactory() {
+        return NameFactory.createBuilder()
+                .counter(DEFAULT, Sets.of(EXECUTION_COUNT))
+                .counter(ERROR, Sets.of(EXECUTION_ERR_COUNT))
+                .meter(DEFAULT, Sets.of(
+                        M1_RATE,
+                        M5_RATE,
+                        M15_RATE
+                ))
+                .meter(ERROR, Sets.of(
+                        M1_ERR_RATE,
+                        M5_ERR_RATE,
+                        M15_ERR_RATE
+                ))
+                .gauge(DEFAULT, Sets.of())
+                .timer(DEFAULT, Sets.of(
+                        MIN_EXECUTION_TIME,
+                        MAX_EXECUTION_TIME,
+                        MEAN_EXECUTION_TIME,
+                        P25_EXECUTION_TIME,
+                        P50_EXECUTION_TIME,
+                        P75_EXECUTION_TIME,
+                        P95_EXECUTION_TIME,
+                        P98_EXECUTION_TIME,
+                        P99_EXECUTION_TIME,
+                        P999_EXECUTION_TIME
+                ))
+                .build();
+    }
+}

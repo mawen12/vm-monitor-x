@@ -1,7 +1,8 @@
-package com.github.mawen12.easeagent.core.plugins.demo;
+package com.github.mawen12.easeagent.core.plugins.jdbc.transformer;
 
 import com.github.mawen12.easeagent.api.interceptor.Interceptor;
 import com.github.mawen12.easeagent.core.agent.transformer.AbstractClassTransformer;
+import com.github.mawen12.easeagent.core.plugins.jdbc.JdbcConPrepareOrCreateStmtInterceptor;
 import com.github.mawen12.easeagent.api.utils.Lists;
 import com.github.mawen12.easeagent.api.utils.Sets;
 import net.bytebuddy.description.method.MethodDescription;
@@ -11,33 +12,31 @@ import net.bytebuddy.matcher.ElementMatcher;
 import java.util.List;
 import java.util.Set;
 
-import static net.bytebuddy.matcher.ElementMatchers.any;
-import static net.bytebuddy.matcher.ElementMatchers.named;
+import static net.bytebuddy.matcher.ElementMatchers.*;
 
-public class DemoTransformer extends AbstractClassTransformer {
+public class JdbcConnectionTransformer extends AbstractClassTransformer {
 
     @Override
     protected String getAdviceKey() {
-        return "Demo";
+        return "Jdbc-Connection";
     }
 
     @Override
     protected List<Interceptor> getInterceptors() {
-        return Lists.of(DemoInterceptor.INSTANCE);
-    }
-
-    @Override
-    public ElementMatcher<ClassLoader> getClassLoaderMatcher() {
-        return any();
+        return Lists.of(JdbcConPrepareOrCreateStmtInterceptor.INSTANCE);
     }
 
     @Override
     public ElementMatcher.Junction<TypeDescription> getClassMatcher() {
-        return named("com.demo.HelloWorld");
+        return hasSuperType(named("java.sql.Connection"));
     }
 
     @Override
     public Set<ElementMatcher.Junction<MethodDescription>> getMethodMatchers() {
-        return Sets.of(named("sayHello"));
+        return Sets.of(
+                named("createStatement").and(isPublic())
+                        .or(named("prepareCall").and(isPublic()))
+                        .or(named("prepareStatement").and(isPublic()))
+        );
     }
 }

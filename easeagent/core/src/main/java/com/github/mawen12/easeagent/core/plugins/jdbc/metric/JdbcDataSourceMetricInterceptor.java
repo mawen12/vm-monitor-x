@@ -4,6 +4,7 @@ import com.github.mawen12.easeagent.api.Agent;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
 import com.github.mawen12.easeagent.api.interceptor.NonReentrantInterceptor;
+import com.github.mawen12.easeagent.api.metrics.ServiceMetricRegistry;
 import com.github.mawen12.easeagent.core.plugins.jdbc.JdbcMetric;
 
 import java.sql.Connection;
@@ -17,7 +18,8 @@ public class JdbcDataSourceMetricInterceptor implements NonReentrantInterceptor 
 
     @Override
     public void init() {
-        metric = JdbcMetric.init(Agent.getMetricRegistry(), JdbcMetric.nameFactory());
+        metric = ServiceMetricRegistry.getOrCreate("application", "jdbc-connection", "url",
+                metricRegistry -> new JdbcMetric(metricRegistry, JdbcMetric.nameFactory()));
     }
 
     @Override

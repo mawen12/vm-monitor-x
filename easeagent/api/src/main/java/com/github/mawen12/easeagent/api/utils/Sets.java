@@ -1,4 +1,4 @@
-package com.github.mawen12.easeagent.core.utils;
+package com.github.mawen12.easeagent.api.utils;
 
 import java.util.Collections;
 import java.util.HashSet;

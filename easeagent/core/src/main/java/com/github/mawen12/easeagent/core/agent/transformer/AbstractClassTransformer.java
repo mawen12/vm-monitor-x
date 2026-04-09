@@ -9,6 +9,7 @@ import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.utility.JavaModule;
 
 import java.security.ProtectionDomain;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ public abstract class AbstractClassTransformer implements ClassTransformer, Agen
     @Override
     public AgentBuilder build(AgentBuilder builder) {
         // register chain
+        this.getInterceptors().sort(Comparator.comparing(Interceptor::order));
         InterceptorChainRouter.INSTANCE.add(this.getAdviceKey(), new InterceptorChain(this.getInterceptors()));
         return builder.type(this.getClassMatcher(), this.getClassLoaderMatcher()).transform(this);
     }

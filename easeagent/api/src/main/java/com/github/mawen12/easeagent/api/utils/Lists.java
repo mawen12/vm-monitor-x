@@ -1,4 +1,4 @@
-package com.github.mawen12.easeagent.core.utils;
+package com.github.mawen12.easeagent.api.utils;
 
 import java.util.ArrayList;
 import java.util.Collections;

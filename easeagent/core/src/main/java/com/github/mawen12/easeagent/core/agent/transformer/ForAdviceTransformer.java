@@ -28,7 +28,6 @@ public class ForAdviceTransformer implements AgentBuilder.Transformer {
 
     @Override
     public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, ProtectionDomain protectionDomain) {
-        // 修复 easeagent class loader 无法找到 api 类
         CompoundClassLoader.compound(this.getClass().getClassLoader(), classLoader);
         return advice.transform(builder, typeDescription, classLoader, module, protectionDomain);
     }

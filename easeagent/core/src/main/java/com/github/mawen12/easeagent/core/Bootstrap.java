@@ -6,7 +6,9 @@ import com.github.mawen12.easeagent.core.agent.AgentListener;
 import com.github.mawen12.easeagent.core.context.ContextManagerImpl;
 import com.github.mawen12.easeagent.core.metrics.MetricRegistryManagerImpl;
 import com.github.mawen12.easeagent.core.plugins.demo.DemoTransformer;
-import com.github.mawen12.easeagent.core.plugins.jdbc.JdbcTransformer;
+import com.github.mawen12.easeagent.core.plugins.jdbc.transformer.JdbcConnectionTransformer;
+import com.github.mawen12.easeagent.core.plugins.jdbc.transformer.JdbcDataSourceTransformer;
+import com.github.mawen12.easeagent.core.plugins.jdbc.transformer.JdbcStatementTransformer;
 import net.bytebuddy.agent.builder.AgentBuilder;
 
 import java.lang.instrument.Instrumentation;
@@ -27,7 +29,9 @@ public class Bootstrap {
                 .ignore(AgentIgnore.ignored());
 
         // jdbc
-        agentBuilder = new JdbcTransformer().build(agentBuilder);
+        agentBuilder = new JdbcDataSourceTransformer().build(agentBuilder);
+        agentBuilder = new JdbcConnectionTransformer().build(agentBuilder);
+        agentBuilder = new JdbcStatementTransformer().build(agentBuilder);
 
         // demo
         agentBuilder = new DemoTransformer().build(agentBuilder);

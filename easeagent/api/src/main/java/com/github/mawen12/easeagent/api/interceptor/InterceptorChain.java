@@ -34,6 +34,7 @@ public class InterceptorChain {
             interceptor.before(methodInfo, ctx);
         } catch (Throwable e) {
             System.err.println("[agent] interceptor before error: " + e.getMessage());
+            e.printStackTrace();
         }
         doBefore(methodInfo, ctx, pos + 1);
     }

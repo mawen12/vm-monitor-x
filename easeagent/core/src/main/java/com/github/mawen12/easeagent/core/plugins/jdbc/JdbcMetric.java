@@ -3,7 +3,7 @@ package com.github.mawen12.easeagent.core.plugins.jdbc;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.metrics.*;
 import com.github.mawen12.easeagent.api.utils.ContextUtils;
-import com.github.mawen12.easeagent.core.utils.Sets;
+import com.github.mawen12.easeagent.api.utils.Sets;
 
 import java.time.Duration;
 
@@ -12,22 +12,7 @@ import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.DEFAULT;
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.ERROR;
 
 public class JdbcMetric extends ServiceMetric {
-    private static JdbcMetric INSTANCE;
-
-    public static JdbcMetric init(MetricRegistry metricRegistry, NameFactory nameFactory) {
-        if (INSTANCE != null) {
-            return INSTANCE;
-        }
-        synchronized (JdbcMetric.class) {
-            if (INSTANCE != null) {
-                return INSTANCE;
-            }
-            INSTANCE = new JdbcMetric(metricRegistry, nameFactory);
-        }
-        return INSTANCE;
-    }
-
-    private JdbcMetric(MetricRegistry metricRegistry, NameFactory nameFactory) {
+    public JdbcMetric(MetricRegistry metricRegistry, NameFactory nameFactory) {
         super(metricRegistry, nameFactory);
     }
 

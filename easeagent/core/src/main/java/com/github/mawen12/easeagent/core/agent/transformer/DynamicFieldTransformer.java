@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.agent.transformer;
 
+import com.github.mawen12.easeagent.api.field.DynamicFieldAccessor;
 import com.github.mawen12.easeagent.core.Bootstrap;
 import com.github.mawen12.easeagent.core.agent.advice.DynamicInstanceInitAdvice;
 import net.bytebuddy.agent.builder.AgentBuilder;
@@ -29,23 +30,19 @@ public class DynamicFieldTransformer implements AgentBuilder.Transformer {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(Bootstrap.LOADER);
 
+
+        System.out.println("[agent] add dynamic field for " + typeDescription.getName());
         try {
-            builder.defineField(FIELD_NAME, Object.class, Opcodes.ACC_PRIVATE)
-                    .implement(DynamicFieldAccessor.class)
-                    .intercept(FieldAccessor.ofField(FIELD_NAME));
+            try {
+                builder = builder.defineField(FIELD_NAME, Object.class, Opcodes.ACC_PRIVATE)
+                        .implement(DynamicFieldAccessor.class)
+                        .intercept(FieldAccessor.ofField(FIELD_NAME));
+            } catch (Exception e) {
+                System.err.println("[agent] type " + typeDescription.getName() + " already has field " + FIELD_NAME);
+            }
             return transformer.transform(builder, typeDescription, classLoader, module, protectionDomain);
         } finally {
             Thread.currentThread().setContextClassLoader(cl);
         }
     }
-
-    public interface DynamicFieldAccessor {
-        Object NULL = new Object();
-
-        void setAgent$$Field$$Data(Object data);
-
-        Object getAgent$$Field$$Data();
-    }
-
-
 }
