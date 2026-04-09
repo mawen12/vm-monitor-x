@@ -1,6 +1,7 @@
 package com.github.mawen12.easeagent.api.interceptor;
 
 import com.github.mawen12.easeagent.api.context.Context;
+import com.github.mawen12.easeagent.api.utils.ContextUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,6 +21,7 @@ public class InterceptorChain {
     }
 
     public void before(MethodInfo methodInfo, Context ctx) {
+        ContextUtils.setBeginTime(ctx);
         doBefore(methodInfo, ctx, 0);
     }
 
@@ -37,6 +39,7 @@ public class InterceptorChain {
     }
 
     public void after(MethodInfo methodInfo, Context ctx) {
+        ContextUtils.setEndTime(ctx);
         doAfter(methodInfo, ctx, interceptors.size() - 1);
     }
 
@@ -48,7 +51,8 @@ public class InterceptorChain {
         try {
             interceptor.after(methodInfo, ctx);
         } catch (Throwable e) {
-            System.err.println("[agent] interceptor after error: " + e.getMessage());
+            System.err.println("[agent] interceptor after error: " + e.getMessage() + " pos: " + pos + " interceptors size: " + interceptors.size());
+            e.printStackTrace();
         }
         doAfter(methodInfo, ctx, pos - 1);
     }

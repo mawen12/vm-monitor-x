@@ -1,5 +1,8 @@
-package com.github.mawen12.easeagent.core.agent;
+package com.github.mawen12.easeagent.core.agent.transformer;
 
+import com.github.mawen12.easeagent.core.agent.AdviceKeyOffsetMapping;
+import com.github.mawen12.easeagent.core.agent.CompoundClassLoader;
+import com.github.mawen12.easeagent.core.agent.advice.CommonInlineAdvice;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.method.MethodDescription;
@@ -25,6 +28,8 @@ public class ForAdviceTransformer implements AgentBuilder.Transformer {
 
     @Override
     public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, ProtectionDomain protectionDomain) {
+        // 修复 easeagent class loader 无法找到 api 类
+        CompoundClassLoader.compound(this.getClass().getClassLoader(), classLoader);
         return advice.transform(builder, typeDescription, classLoader, module, protectionDomain);
     }
 }

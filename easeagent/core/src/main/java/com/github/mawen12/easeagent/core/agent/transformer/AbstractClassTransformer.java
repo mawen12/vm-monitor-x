@@ -1,4 +1,4 @@
-package com.github.mawen12.easeagent.core.agent;
+package com.github.mawen12.easeagent.core.agent.transformer;
 
 import com.github.mawen12.easeagent.api.interceptor.Interceptor;
 import com.github.mawen12.easeagent.api.interceptor.InterceptorChain;
@@ -35,6 +35,13 @@ public abstract class AbstractClassTransformer implements ClassTransformer, Agen
                 .stream()
                 .map(methodMatcher -> new ForAdviceTransformer(methodMatcher, adviceKey))
                 .collect(Collectors.toList());
+
+        if (this.addDynamicField()) {
+            transformers.add(new DynamicFieldTransformer());
+        }
+//        if (this.getTypeFieldName() != null && this.getTypeFieldName() != "") {
+//            transformers.add();
+//        }
 
         // init interceptors
         List<Interceptor> interceptors = getInterceptors();

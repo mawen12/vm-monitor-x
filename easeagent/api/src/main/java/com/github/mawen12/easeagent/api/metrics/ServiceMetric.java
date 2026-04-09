@@ -1,0 +1,32 @@
+package com.github.mawen12.easeagent.api.metrics;
+
+public abstract class ServiceMetric {
+    private final MetricRegistry metricRegistry;
+
+    private final NameFactory nameFactory;
+
+    public ServiceMetric(MetricRegistry metricRegistry, NameFactory nameFactory) {
+        this.metricRegistry = metricRegistry;
+        this.nameFactory = nameFactory;
+    }
+
+    public Counter counter(String key, Metric.SubType subType) {
+        return metricRegistry.counter(nameFactory.counterName(key, subType));
+    }
+
+    public <T> Gauge<T> gauge(String key, Metric.SubType subType, MetricSupplier<Gauge<T>> supplier) {
+        return metricRegistry.gauge(nameFactory.gaugeName(key, subType), supplier);
+    }
+
+    public Histogram histogram(String key, Metric.SubType subType) {
+        return metricRegistry.histogram(nameFactory.histogramName(key, subType));
+    }
+
+    public Meter meter(String key, Metric.SubType subType) {
+        return metricRegistry.meter(nameFactory.meterName(key, subType));
+    }
+
+    public Timer timer(String key, Metric.SubType subType) {
+        return metricRegistry.timer(nameFactory.timerName(key, subType));
+    }
+}

@@ -1,10 +1,11 @@
-package com.github.mawen12.easeagent.core.agent;
+package com.github.mawen12.easeagent.core.agent.advice;
 
 import com.github.mawen12.easeagent.api.Agent;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.interceptor.InterceptorChain;
 import com.github.mawen12.easeagent.api.interceptor.InterceptorChainRouter;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
+import com.github.mawen12.easeagent.core.agent.AdviceKey;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.implementation.bytecode.assign.Assigner;
 

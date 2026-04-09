@@ -1,30 +1,35 @@
-package com.github.mawen12.easeagent.core.plugins.jdbc;
+package com.github.mawen12.easeagent.core.plugins.jdbc.metric;
 
+import com.github.mawen12.easeagent.api.Agent;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
 import com.github.mawen12.easeagent.api.interceptor.NonReentrantInterceptor;
+import com.github.mawen12.easeagent.core.plugins.jdbc.JdbcMetric;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class JdbcDataSourceMetricInterceptor implements NonReentrantInterceptor {
-
-    private final AtomicInteger counter = new AtomicInteger();
-
     public static JdbcDataSourceMetricInterceptor INSTANCE = new JdbcDataSourceMetricInterceptor();
+
+    private JdbcMetric metric;
+
+    @Override
+    public void init() {
+        metric = JdbcMetric.init(Agent.getMetricRegistry(), JdbcMetric.nameFactory());
+    }
 
     @Override
     public void doBefore(MethodInfo methodInfo, Context ctx) {
-
+        // NOP
     }
 
     @Override
     public void doAfter(MethodInfo methodInfo, Context ctx) {
         Connection con = (Connection) methodInfo.getRetValue();
         String key;
-        boolean success = false;
+        boolean success = true;
 
         if (methodInfo.getRetValue() == null || methodInfo.getThrowable() != null) {
             key = "err-conn";
@@ -33,8 +38,7 @@ public class JdbcDataSourceMetricInterceptor implements NonReentrantInterceptor 
             key = getUrl(con);
         }
 
-        counter.incrementAndGet();
-        System.out.printf("jdbc.execute.cnt:%s is %d\n", key, counter.get());
+        metric.collectMetric(key, success, ctx);
     }
 
     private static String getUrl(Connection conn) {

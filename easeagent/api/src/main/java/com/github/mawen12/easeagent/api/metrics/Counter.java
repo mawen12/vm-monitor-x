@@ -1,6 +1,7 @@
 package com.github.mawen12.easeagent.api.metrics;
 
 public interface Counter extends Metric {
+    Counter NOOP = NoOp.INSTANCE;
 
     void inc();
 
