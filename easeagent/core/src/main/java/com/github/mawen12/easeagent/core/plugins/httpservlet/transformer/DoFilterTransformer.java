@@ -3,6 +3,9 @@ package com.github.mawen12.easeagent.core.plugins.httpservlet.transformer;
 import com.github.mawen12.easeagent.api.interceptor.Interceptor;
 import com.github.mawen12.easeagent.api.utils.Sets;
 import com.github.mawen12.easeagent.core.agent.transformer.AbstractClassTransformer;
+import com.github.mawen12.easeagent.core.agent.transformer.ClassTransformer;
+import com.github.mawen12.easeagent.core.plugins.httpservlet.metric.DoFilterMetricInterceptor;
+import com.google.auto.service.AutoService;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
@@ -13,6 +16,7 @@ import java.util.Set;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
+@AutoService(ClassTransformer.class)
 public class DoFilterTransformer extends AbstractClassTransformer {
 
     @Override
@@ -22,7 +26,7 @@ public class DoFilterTransformer extends AbstractClassTransformer {
 
     @Override
     protected List<Interceptor> getInterceptors() {
-        return Collections.emptyList();
+        return Collections.singletonList(DoFilterMetricInterceptor.INSTANCE);
     }
 
     @Override

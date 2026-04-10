@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class DoFilterMetricInterceptor extends BaseServletInterceptor {
+    public static final DoFilterMetricInterceptor INSTANCE = new DoFilterMetricInterceptor();
+
     private static final String AFTER_MARK = DoFilterMetricInterceptor.class.getName() + "$AfterMark";
 
     private ServerMetric metric;

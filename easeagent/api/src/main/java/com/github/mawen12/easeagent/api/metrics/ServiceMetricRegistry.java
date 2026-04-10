@@ -2,7 +2,6 @@ package com.github.mawen12.easeagent.api.metrics;
 
 import com.github.mawen12.easeagent.api.Agent;
 
-import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.BiFunction;
@@ -27,7 +26,7 @@ public class ServiceMetricRegistry {
                 return (T) metric;
             }
 
-            metric = supplier.apply(Agent.newMetricRegistry(tags, new HashMap<>(), nameFactory), nameFactory);
+            metric = supplier.apply(Agent.newMetricRegistry(tags, nameFactory), nameFactory);
             INSTANCES.put(tags, metric);
         }
         return (T) metric;

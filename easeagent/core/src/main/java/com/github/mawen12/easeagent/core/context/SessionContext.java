@@ -1,7 +1,7 @@
 package com.github.mawen12.easeagent.core.context;
 
 import com.github.mawen12.easeagent.api.context.Context;
-import com.github.mawen12.easeagent.core.utils.Null;
+import com.github.mawen12.easeagent.api.utils.Null;
 
 import java.util.HashMap;
 import java.util.Map;

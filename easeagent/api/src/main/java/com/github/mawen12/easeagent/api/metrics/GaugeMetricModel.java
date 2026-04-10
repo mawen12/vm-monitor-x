@@ -74,4 +74,49 @@ public interface GaugeMetricModel {
             return map;
         }
     }
+
+    class DruidDataSourceGaugeMetricModel implements GaugeMetricModel {
+        private Integer activeCount;
+        private Integer poolingCount;
+        private Integer maxActive;
+        private Integer waitThreadCount;
+
+        public DruidDataSourceGaugeMetricModel(Integer activeCount, Integer poolingCount, Integer maxActive, Integer waitThreadCount) {
+            this.activeCount = activeCount;
+            this.poolingCount = poolingCount;
+            this.maxActive = maxActive;
+            this.waitThreadCount = waitThreadCount;
+        }
+
+        @Override
+        public Map<String, Object> toHashMap() {
+            Map<String, Object> map = new HashMap<>();
+            map.put("active-count", activeCount);
+            map.put("pooling-count", poolingCount);
+            map.put("max-active", maxActive);
+            map.put("wait-thread-count", waitThreadCount);
+            return map;
+        }
+    }
+
+    class TomcatGaugeMetricModel implements GaugeMetricModel {
+        private Integer currentThreadsBusy;
+        private Integer currentThreadCount;
+        private Integer maxThreads;
+
+        public TomcatGaugeMetricModel(Integer currentThreadsBusy, Integer currentThreadCount, Integer maxThreads) {
+            this.currentThreadsBusy = currentThreadsBusy;
+            this.currentThreadCount = currentThreadCount;
+            this.maxThreads = maxThreads;
+        }
+
+        @Override
+        public Map<String, Object> toHashMap() {
+            Map<String, Object> map = new HashMap<>();
+            map.put("current-threads-busy", currentThreadsBusy);
+            map.put("current-thread-count", currentThreadCount);
+            map.put("max-threads", maxThreads);
+            return map;
+        }
+    }
 }
