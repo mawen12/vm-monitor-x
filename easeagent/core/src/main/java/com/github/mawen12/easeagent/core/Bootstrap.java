@@ -15,11 +15,14 @@ import net.bytebuddy.agent.builder.AgentBuilder;
 import sun.nio.ch.Net;
 
 import java.lang.instrument.Instrumentation;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Bootstrap {
 
     public static ClassLoader LOADER;
+
 
     public static void premain(String args, Instrumentation inst, String jarPath) throws Exception {
         Bootstrap.LOADER = Thread.currentThread().getContextClassLoader();
@@ -32,7 +35,6 @@ public class Bootstrap {
             Agent.additionalAttributes.put("host_name", NetUtils.getHostName());
         }
 
-
         Agent.contextManager = ContextManagerImpl.build();
         Agent.metricRegistryManager = MetricRegistryManagerImpl.build();
 
@@ -44,8 +46,10 @@ public class Bootstrap {
 
         List<BeanProvider> beanProviders = ServiceLoaderUtils.load(BeanProvider.class);
         for (BeanProvider beanProvider : beanProviders) {
-            beanProvider.afterPropertiesSet();
+            Agent.addListener(beanProvider.onState(), beanProvider::afterPropertiesSet);
         }
+
+        Agent.markStart();
 
         List<ClassTransformer> transformers = ServiceLoaderUtils.load(ClassTransformer.class);
         for (ClassTransformer transformer : transformers) {

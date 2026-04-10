@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.plugins.jvm;
 
+import com.github.mawen12.easeagent.api.Agent;
 import com.github.mawen12.easeagent.api.bean.BeanProvider;
 import com.github.mawen12.easeagent.core.plugins.jvm.metric.JvmGCMetric;
 import com.github.mawen12.easeagent.core.plugins.jvm.metric.JvmMemoryMetric;
@@ -12,5 +13,10 @@ public class JvmBeanProvider implements BeanProvider {
     public void afterPropertiesSet() {
         JvmGCMetric.buildAndRun();
         JvmMemoryMetric.buildAndRun();
+    }
+
+    @Override
+    public Agent.State onState() {
+        return Agent.State.Start;
     }
 }

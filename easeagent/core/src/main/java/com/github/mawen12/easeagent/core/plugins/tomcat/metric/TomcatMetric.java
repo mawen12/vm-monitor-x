@@ -26,12 +26,10 @@ public class TomcatMetric extends ServiceMetric implements Runnable {
         Tags tags = new Tags("application", "tomcat", "resource");
         TomcatMetric metric = ServiceMetricRegistry.getOrCreate(tags, TomcatNameFactory.INSTANCE, TomcatMetric::new);
 
-        // TODO fixit
-        try {
-            ManagementFactory.getPlatformMBeanServer().addNotificationListener(new ObjectName("Tomcat:type=Server"), (notification, handback) -> {
-                metric.init();
-            }, null, null);
-        } catch (Exception e) {
+        metric.init();
+
+        if (metric.name != null) {
+            ScheduleHelper.DEFAULT.execute(5, 5, metric);
         }
     }
 
@@ -46,10 +44,6 @@ public class TomcatMetric extends ServiceMetric implements Runnable {
                 System.out.println("Tomcat Metric name is " + this.name.getCanonicalName());
             }
         } catch (MalformedObjectNameException e) {
-        }
-
-        if (this.name != null) {
-            ScheduleHelper.DEFAULT.execute(5, 5, this);
         }
     }
 
