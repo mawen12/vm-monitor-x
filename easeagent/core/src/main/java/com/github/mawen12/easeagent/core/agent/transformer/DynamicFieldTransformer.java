@@ -30,8 +30,6 @@ public class DynamicFieldTransformer implements AgentBuilder.Transformer {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(Bootstrap.LOADER);
 
-
-        System.out.println("[agent] add dynamic field for " + typeDescription.getName());
         try {
             try {
                 builder = builder.defineField(FIELD_NAME, Object.class, Opcodes.ACC_PRIVATE)

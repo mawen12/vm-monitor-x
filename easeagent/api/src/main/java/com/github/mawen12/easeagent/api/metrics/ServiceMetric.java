@@ -1,9 +1,9 @@
 package com.github.mawen12.easeagent.api.metrics;
 
 public abstract class ServiceMetric {
-    private final MetricRegistry metricRegistry;
+    protected final MetricRegistry metricRegistry;
 
-    private final NameFactory nameFactory;
+    protected final NameFactory nameFactory;
 
     public ServiceMetric(MetricRegistry metricRegistry, NameFactory nameFactory) {
         this.metricRegistry = metricRegistry;

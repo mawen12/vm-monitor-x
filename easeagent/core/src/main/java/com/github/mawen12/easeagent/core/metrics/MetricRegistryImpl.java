@@ -1,12 +1,10 @@
 package com.github.mawen12.easeagent.core.metrics;
 
-import com.codahale.metrics.ConsoleReporter;
 import com.github.mawen12.easeagent.api.metrics.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class MetricRegistryImpl implements MetricRegistry {
     private final com.codahale.metrics.MetricRegistry metricRegistry;
@@ -15,13 +13,12 @@ public class MetricRegistryImpl implements MetricRegistry {
     private MetricRegistryImpl(com.codahale.metrics.MetricRegistry metricRegistry) {
         this.metricRegistry = Objects.requireNonNull(metricRegistry, "metricRegistry cannot be null");
 
-        ConsoleReporter reporter = ConsoleReporter.forRegistry(metricRegistry)
-                .convertRatesTo(TimeUnit.SECONDS)
-                .convertDurationsTo(TimeUnit.MILLISECONDS)
-                .build();
-        reporter.start(2, TimeUnit.SECONDS);
-
-
+//        ConsoleReporter reporter = ConsoleReporter.forRegistry(metricRegistry)
+//                .convertRatesTo(TimeUnit.SECONDS)
+//                .convertDurationsTo(TimeUnit.MILLISECONDS)
+//                .build();
+//        reporter.start(2, TimeUnit.SECONDS);
+//
     }
 
     public static MetricRegistry build(com.codahale.metrics.MetricRegistry metricRegistry) {

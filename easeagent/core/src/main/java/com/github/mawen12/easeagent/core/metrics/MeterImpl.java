@@ -4,7 +4,7 @@ import com.github.mawen12.easeagent.api.metrics.Meter;
 
 public class MeterImpl implements Meter {
 
-    private com.codahale.metrics.Meter meter;
+    private final com.codahale.metrics.Meter meter;
 
     private MeterImpl(com.codahale.metrics.Meter meter) {
         this.meter = meter;
@@ -32,5 +32,15 @@ public class MeterImpl implements Meter {
     @Override
     public double getFifteenMinuteRate() {
         return meter.getFifteenMinuteRate();
+    }
+
+    @Override
+    public double getMeanRate() {
+        return meter.getMeanRate();
+    }
+
+    @Override
+    public long getCount() {
+        return meter.getCount();
     }
 }

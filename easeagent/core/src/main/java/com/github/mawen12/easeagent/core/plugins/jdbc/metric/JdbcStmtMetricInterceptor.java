@@ -4,6 +4,7 @@ import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
 import com.github.mawen12.easeagent.api.interceptor.NonReentrantInterceptor;
 import com.github.mawen12.easeagent.api.metrics.ServiceMetricRegistry;
+import com.github.mawen12.easeagent.api.metrics.Tags;
 import com.github.mawen12.easeagent.core.plugins.jdbc.JdbcMetric;
 import com.github.mawen12.easeagent.core.plugins.jdbc.common.SqlInfo;
 
@@ -14,8 +15,8 @@ public class JdbcStmtMetricInterceptor implements NonReentrantInterceptor {
 
     @Override
     public void init() {
-        metric = ServiceMetricRegistry.getOrCreate("application", "jdbc-statement", "signature",
-                metricRegistry -> new JdbcMetric(metricRegistry, JdbcMetric.nameFactory()));
+        Tags tags = new Tags("application", "jdbc-statement", "signature");
+        metric = ServiceMetricRegistry.getOrCreate(tags, JdbcMetric.NAME_FACTORY, JdbcMetric::new);
     }
 
     @Override

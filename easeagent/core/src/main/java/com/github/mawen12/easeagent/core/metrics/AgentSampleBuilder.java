@@ -1,6 +1,5 @@
 package com.github.mawen12.easeagent.core.metrics;
 
-import com.github.mawen12.easeagent.api.metrics.Metric;
 import com.github.mawen12.easeagent.api.metrics.MetricName;
 import com.github.mawen12.easeagent.api.metrics.Tags;
 import io.prometheus.client.Collector;
@@ -27,7 +26,7 @@ public class AgentSampleBuilder extends DefaultSampleBuilder {
         additionalAttributes(labelNames, labelValues);
         String name = rebuildName(dropwizardName, labelNames, labelValues);
 
-        return super.createSample(name, nameSuffix, additionalLabelNames, additionalLabelValues, value);
+        return super.createSample(name, nameSuffix, labelNames, labelValues, value);
     }
 
     private void additionalAttributes(List<String> labelNames, List<String> labelValues) {

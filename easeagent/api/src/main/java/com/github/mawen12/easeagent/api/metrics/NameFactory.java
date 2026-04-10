@@ -1,10 +1,11 @@
 package com.github.mawen12.easeagent.api.metrics;
 
+import com.github.mawen12.easeagent.api.utils.Sets;
 import com.github.mawen12.easeagent.api.utils.Tuple;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static com.github.mawen12.easeagent.api.metrics.Metric.*;
 
 public interface NameFactory {
 
@@ -12,24 +13,40 @@ public interface NameFactory {
         return new Builder();
     }
 
-    String counterName(String key, Metric.SubType subType);
+    String counterName(String key, SubType subType);
 
-    String gaugeName(String key, Metric.SubType subType);
+    String gaugeName(String key, SubType subType);
 
-    String histogramName(String key, Metric.SubType subType);
+    String histogramName(String key, SubType subType);
 
-    String meterName(String key, Metric.SubType subType);
+    String meterName(String key, SubType subType);
 
-    String timerName(String key, Metric.SubType subType);
+    String timerName(String key, SubType subType);
+
+    // ===================================================
+
+    Map<SubType, MetricName> counterNames(String key);
+
+    Map<SubType, MetricName> gaugeNames(String key);
+
+    Map<SubType, MetricName> histogramNames(String key);
+
+    Map<SubType, MetricName> meterNames(String key);
+
+    Map<SubType, MetricName> timerNames(String key);
+
+    interface Supplier {
+        NameFactory nameFactory();
+    }
 
     class Default implements NameFactory {
-        private final List<Tuple<Metric.SubType, Set<Metric.Field>>> histograms;
-        private final List<Tuple<Metric.SubType, Set<Metric.Field>>> counters;
-        private final List<Tuple<Metric.SubType, Set<Metric.Field>>> timers;
-        private final List<Tuple<Metric.SubType, Set<Metric.Field>>> gauges;
-        private final List<Tuple<Metric.SubType, Set<Metric.Field>>> meters;
+        private final List<Tuple<SubType, Set<FieldWrapper>>> histograms;
+        private final List<Tuple<SubType, Set<FieldWrapper>>> counters;
+        private final List<Tuple<SubType, Set<FieldWrapper>>> timers;
+        private final List<Tuple<SubType, Set<FieldWrapper>>> gauges;
+        private final List<Tuple<SubType, Set<FieldWrapper>>> meters;
 
-        public Default(List<Tuple<Metric.SubType, Set<Metric.Field>>> histograms, List<Tuple<Metric.SubType, Set<Metric.Field>>> counters, List<Tuple<Metric.SubType, Set<Metric.Field>>> timers, List<Tuple<Metric.SubType, Set<Metric.Field>>> gauges, List<Tuple<Metric.SubType, Set<Metric.Field>>> meters) {
+        public Default(List<Tuple<SubType, Set<FieldWrapper>>> histograms, List<Tuple<SubType, Set<FieldWrapper>>> counters, List<Tuple<SubType, Set<FieldWrapper>>> timers, List<Tuple<SubType, Set<FieldWrapper>>> gauges, List<Tuple<SubType, Set<FieldWrapper>>> meters) {
             this.histograms = histograms;
             this.counters = counters;
             this.timers = timers;
@@ -38,32 +55,67 @@ public interface NameFactory {
         }
 
         @Override
-        public String counterName(String key, Metric.SubType subType) {
-            return getName(key, Metric.Type.Counter, subType, this.counters);
+        public String counterName(String key, SubType subType) {
+            return getName(key, Type.Counter, subType, this.counters);
         }
 
         @Override
-        public String gaugeName(String key, Metric.SubType subType) {
-            return getName(key, Metric.Type.Gauge, subType, this.gauges);
+        public String gaugeName(String key, SubType subType) {
+            return getName(key, Type.Gauge, subType, this.gauges);
         }
 
         @Override
-        public String histogramName(String key, Metric.SubType subType) {
-            return getName(key, Metric.Type.Histogram, subType, this.histograms);
+        public String histogramName(String key, SubType subType) {
+            return getName(key, Type.Histogram, subType, this.histograms);
         }
 
         @Override
-        public String meterName(String key, Metric.SubType subType) {
-            return getName(key, Metric.Type.Meter, subType, this.meters);
+        public String meterName(String key, SubType subType) {
+            return getName(key, Type.Meter, subType, this.meters);
         }
 
         @Override
-        public String timerName(String key, Metric.SubType subType) {
-            return getName(key, Metric.Type.Timer, subType, this.timers);
+        public String timerName(String key, SubType subType) {
+            return getName(key, Type.Timer, subType, this.timers);
         }
 
-        private String getName(String key, Metric.Type metricType, Metric.SubType metricSubType, List<Tuple<Metric.SubType, Set<Metric.Field>>> metrics) {
-            for (Tuple<Metric.SubType, Set<Metric.Field>> metric : metrics) {
+        @Override
+        public Map<SubType, MetricName> counterNames(String key) {
+            Map<SubType, MetricName> results = new HashMap<>();
+            counters.forEach(t -> results.put(t.getX(), new MetricName(t.getX(), key, Type.Counter, t.getY())));
+            return results;
+        }
+
+        @Override
+        public Map<SubType, MetricName> gaugeNames(String key) {
+            Map<SubType, MetricName> results = new HashMap<>();
+            gauges.forEach(t -> results.put(t.getX(), new MetricName(t.getX(), key, Type.Gauge, t.getY())));
+            return results;
+        }
+
+        @Override
+        public Map<SubType, MetricName> histogramNames(String key) {
+            Map<SubType, MetricName> results = new HashMap<>();
+            histograms.forEach(t -> results.put(t.getX(), new MetricName(t.getX(), key, Type.Histogram, t.getY())));
+            return results;
+        }
+
+        @Override
+        public Map<SubType, MetricName> meterNames(String key) {
+            Map<SubType, MetricName> results = new HashMap<>();
+            meters.forEach(t -> results.put(t.getX(), new MetricName(t.getX(), key, Type.Meter, t.getY())));
+            return results;
+        }
+
+        @Override
+        public Map<SubType, MetricName> timerNames(String key) {
+            Map<SubType, MetricName> results = new HashMap<>();
+            timers.forEach(t -> results.put(t.getX(), new MetricName(t.getX(), key, Type.Timer, t.getY())));
+            return results;
+        }
+
+        private String getName(String key, Type metricType, SubType metricSubType, List<Tuple<SubType, Set<FieldWrapper>>> metrics) {
+            for (Tuple<SubType, Set<FieldWrapper>> metric : metrics) {
                 if (metric.getX().equals(metricSubType)) {
                     return metricSubType.getCode() + metricType.ordinal() + key;
                 }
@@ -74,41 +126,62 @@ public interface NameFactory {
     }
 
     class Builder {
-        private final List<Tuple<Metric.SubType, Set<Metric.Field>>> histograms = new ArrayList<>();
-        private final List<Tuple<Metric.SubType, Set<Metric.Field>>> counters = new ArrayList<>();
-        private final List<Tuple<Metric.SubType, Set<Metric.Field>>> timers = new ArrayList<>();
-        private final List<Tuple<Metric.SubType, Set<Metric.Field>>> gauges = new ArrayList<>();
-        private final List<Tuple<Metric.SubType, Set<Metric.Field>>> meters = new ArrayList<>();
+        private final List<Tuple<SubType, Set<FieldWrapper>>> histograms = new ArrayList<>();
+        private final List<Tuple<SubType, Set<FieldWrapper>>> counters = new ArrayList<>();
+        private final List<Tuple<SubType, Set<FieldWrapper>>> timers = new ArrayList<>();
+        private final List<Tuple<SubType, Set<FieldWrapper>>> gauges = new ArrayList<>();
+        private final List<Tuple<SubType, Set<FieldWrapper>>> meters = new ArrayList<>();
 
-        Builder() {}
+        Builder() {
+        }
 
         public NameFactory build() {
             return new Default(histograms, counters, timers, gauges, meters);
         }
 
-        public Builder meter(Metric.SubType subType, Set<Metric.Field> fields) {
+        public Builder meter(SubType subType, Set<FieldWrapper> fields) {
             this.meters.add(new Tuple<>(subType, fields));
             return this;
         }
 
-        public Builder timer(Metric.SubType subType, Set<Metric.Field> fields) {
+        public Builder meter(SubType subType, FieldWrapper... fs) {
+            return this.meter(subType, Sets.of(fs));
+        }
+
+        public Builder timer(SubType subType, Set<FieldWrapper> fields) {
             this.timers.add(new Tuple<>(subType, fields));
             return this;
         }
 
-        public Builder counter(Metric.SubType subType, Set<Metric.Field> fields) {
+        public Builder timer(SubType subType, FieldWrapper... fs) {
+            return this.timer(subType, Sets.of(fs));
+        }
+
+        public Builder counter(SubType subType, Set<FieldWrapper> fields) {
             this.counters.add(new Tuple<>(subType, fields));
             return this;
         }
 
-        public Builder histogram(Metric.SubType subType, Set<Metric.Field> fields) {
+        public Builder counter(SubType subType, FieldWrapper... fs) {
+            return this.counter(subType, Sets.of(fs));
+        }
+
+        public Builder histogram(SubType subType, Set<FieldWrapper> fields) {
             this.histograms.add(new Tuple<>(subType, fields));
             return this;
         }
 
-        public Builder gauge(Metric.SubType subType, Set<Metric.Field> fields) {
+        public Builder histogram(SubType subType, FieldWrapper... fs) {
+            return this.histogram(subType, Sets.of(fs));
+        }
+
+        public Builder gauge(SubType subType, Set<FieldWrapper> fields) {
             this.gauges.add(new Tuple<>(subType, fields));
             return this;
+        }
+
+        public Builder gauge(SubType subType, FieldWrapper... fs) {
+            return this.gauge(subType, Sets.of(fs));
         }
     }
 }

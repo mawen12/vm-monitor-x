@@ -1,15 +1,18 @@
 package com.github.mawen12.easeagent.core.metrics;
 
+import com.github.mawen12.easeagent.api.metrics.Snapshot;
 import com.github.mawen12.easeagent.api.metrics.Timer;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-public class TimerImpl implements Timer {
-    private com.codahale.metrics.Timer timer;
+public class TimerImpl implements Timer, Snapshot.Wrapper {
+    private final com.codahale.metrics.Timer timer;
+    private final Snapshot snapshot;
 
     private TimerImpl(com.codahale.metrics.Timer timer) {
         this.timer = timer;
+        this.snapshot = SnapshotImpl.build(timer.getSnapshot());
     }
 
     public static Timer build(com.codahale.metrics.Timer timer) {
@@ -25,4 +28,34 @@ public class TimerImpl implements Timer {
     public void update(Duration duration) {
         timer.update(duration);
     }
+
+    @Override
+    public Snapshot unwrap() {
+        return snapshot;
+    }
+
+//    @Override
+//    public double getValue(double quantile) {
+//        return timer.getSnapshot().getValue(quantile);
+//    }
+//
+//    @Override
+//    public long[] getValues() {
+//        return timer.getSnapshot().getValues();
+//    }
+//
+//    @Override
+//    public long getMax() {
+//        return timer.getSnapshot().getMax();
+//    }
+//
+//    @Override
+//    public long getMin() {
+//        return timer.getSnapshot().getMin();
+//    }
+//
+//    @Override
+//    public double getMean() {
+//        return timer.getSnapshot().getMean();
+//    }
 }

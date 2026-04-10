@@ -29,7 +29,6 @@ public abstract class AbstractClassTransformer implements ClassTransformer, Agen
 
     @Override
     public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, ProtectionDomain protectionDomain) {
-        System.out.println("[agent] transform the " + typeDescription.getName());
         String adviceKey = getAdviceKey();
 
         // build transformers

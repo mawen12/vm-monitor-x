@@ -6,13 +6,16 @@ import java.math.BigDecimal;
 import java.time.Duration;
 
 import static com.github.mawen12.easeagent.api.metrics.Metric.Field.*;
+import static com.github.mawen12.easeagent.api.metrics.Metric.FieldWrapper.of;
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.DEFAULT;
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.ERROR;
+import static com.github.mawen12.easeagent.api.metrics.Metric.ValueFetcher.*;
 
 public class ServerMetric extends ServiceMetric {
+    public static final NameFactory NAME_FACTORY = ServerNameFactory.INSTANCE.nameFactory();
 
-    public ServerMetric(MetricRegistry metricRegistry) {
-        super(metricRegistry, ServerMetric.nameFactory());
+    public ServerMetric(MetricRegistry metricRegistry, NameFactory nameFactory) {
+        super(metricRegistry, nameFactory);
     }
 
     public void collectMetric(String key, int statusCode, Throwable throwable, long startMillis, long endMillis) {
@@ -56,33 +59,40 @@ public class ServerMetric extends ServiceMetric {
         });
     }
 
-    public static NameFactory nameFactory() {
-        return NameFactory.createBuilder()
-                .counter(DEFAULT, Sets.of(EXECUTION_COUNT))
-                .counter(ERROR, Sets.of(EXECUTION_ERR_COUNT))
-                .meter(DEFAULT, Sets.of(
-                        M1_RATE,
-                        M5_RATE,
-                        M15_RATE
-                ))
-                .meter(ERROR, Sets.of(
-                        M1_ERR_RATE,
-                        M5_ERR_RATE,
-                        M15_ERR_RATE
-                ))
-                .gauge(DEFAULT, Sets.of())
-                .timer(DEFAULT, Sets.of(
-                        MIN_EXECUTION_TIME,
-                        MAX_EXECUTION_TIME,
-                        MEAN_EXECUTION_TIME,
-                        P25_EXECUTION_TIME,
-                        P50_EXECUTION_TIME,
-                        P75_EXECUTION_TIME,
-                        P95_EXECUTION_TIME,
-                        P98_EXECUTION_TIME,
-                        P99_EXECUTION_TIME,
-                        P999_EXECUTION_TIME
-                ))
-                .build();
+    enum ServerNameFactory implements NameFactory.Supplier {
+        INSTANCE;
+
+        @Override
+        public NameFactory nameFactory() {
+            return NameFactory.createBuilder()
+                    .counter(DEFAULT,
+                            of(EXECUTION_COUNT, CountingCount))
+                    .counter(ERROR,
+                            of(EXECUTION_ERR_COUNT, CountingCount))
+                    .meter(DEFAULT,
+                            of(M1_RATE, MeterM1Rate),
+                            of(M5_RATE, MeterM5Rate),
+                            of(M15_RATE, MeterM15Rate)
+                    )
+                    .meter(ERROR,
+                            of(M1_ERR_RATE, MeterM1Rate),
+                            of(M5_ERR_RATE, MeterM5Rate),
+                            of(M15_ERR_RATE, MeterM15Rate)
+                    )
+                    .gauge(DEFAULT, Sets.of())
+                    .timer(DEFAULT,
+                            of(MIN_EXECUTION_TIME, SnapshotMinValue),
+                            of(MAX_EXECUTION_TIME, SnapshotMaxValue),
+                            of(MEAN_EXECUTION_TIME, SnapshotMeanValue),
+                            of(P25_EXECUTION_TIME, Snapshot25thPercentileValue),
+                            of(P50_EXECUTION_TIME, Snapshot50thPercentileValue),
+                            of(P75_EXECUTION_TIME, Snapshot75thPercentileValue),
+                            of(P95_EXECUTION_TIME, Snapshot95thPercentileValue),
+                            of(P98_EXECUTION_TIME, Snapshot98thPercentileValue),
+                            of(P99_EXECUTION_TIME, Snapshot99thPercentileValue),
+                            of(P999_EXECUTION_TIME, Snapshot999thPercentileValue)
+                    )
+                    .build();
+        }
     }
 }

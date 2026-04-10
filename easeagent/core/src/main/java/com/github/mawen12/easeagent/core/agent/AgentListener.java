@@ -14,7 +14,7 @@ public class AgentListener implements AgentBuilder.Listener {
 
     @Override
     public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, boolean loaded, DynamicType dynamicType) {
-        System.out.printf("[agent/listener] onTransformation %s\n", typeDescription.getName());
+//        System.out.printf("[agent/listener] onTransformation %s\n", typeDescription.getName());
     }
 
     @Override

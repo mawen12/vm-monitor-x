@@ -1,7 +1,5 @@
 package com.github.mawen12.easeagent.loader;
 
-import com.sun.org.apache.bcel.internal.generic.IFLE;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

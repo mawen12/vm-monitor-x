@@ -1,9 +1,8 @@
 package com.github.mawen12.easeagent.core.plugins.httpservlet.metric;
 
-import com.github.mawen12.easeagent.api.context.Context;
-import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
 import com.github.mawen12.easeagent.api.metrics.ServerMetric;
 import com.github.mawen12.easeagent.api.metrics.ServiceMetricRegistry;
+import com.github.mawen12.easeagent.api.metrics.Tags;
 import com.github.mawen12.easeagent.core.plugins.httpservlet.BaseServletInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,8 @@ public class DoFilterMetricInterceptor extends BaseServletInterceptor {
 
     @Override
     public void init() {
-        metric = ServiceMetricRegistry.getOrCreate("application", "http-request", "url", ServerMetric::new);
+        Tags tags = new Tags("application", "http-request", "url");
+        metric = ServiceMetricRegistry.getOrCreate(tags, ServerMetric.NAME_FACTORY, ServerMetric::new);
     }
 
     @Override

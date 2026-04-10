@@ -1,6 +1,7 @@
 package com.github.mawen12.easeagent.api.metrics;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,5 +51,27 @@ public interface GaugeMetricModel {
         }
     }
 
+    class JvmMemoryGaugeMetricModel implements GaugeMetricModel {
+        private Long bytesInit;
+        private Long bytesUsed;
+        private Long bytesCommitted;
+        private Long bytesMax;
 
+        public JvmMemoryGaugeMetricModel(Long bytesInit, Long bytesUsed, Long bytesCommitted, Long bytesMax) {
+            this.bytesInit = bytesInit;
+            this.bytesUsed = bytesUsed;
+            this.bytesCommitted = bytesCommitted;
+            this.bytesMax = bytesMax;
+        }
+
+        @Override
+        public Map<String, Object> toHashMap() {
+            Map<String, Object> map = new HashMap<>();
+            map.put("bytes-init", bytesInit);
+            map.put("bytes-used", bytesUsed);
+            map.put("bytes-committed", bytesCommitted);
+            map.put("bytes-max", bytesMax);
+            return map;
+        }
+    }
 }

@@ -19,7 +19,6 @@ public enum JdbcConPrepareOrCreateStmtInterceptor implements NonReentrantInterce
 
     @Override
     public void doAfter(MethodInfo methodInfo, Context ctx) {
-        System.out.println("[agent] doAfter Execute the JdbcConPrepareOrCreateStmtInterceptor");
         Statement stmt = (Statement) methodInfo.getRetValue();
         SqlInfo sqlInfo = new SqlInfo((Connection) methodInfo.getInvoker());
         if (methodInfo.getMethod().startsWith("prepare") && methodInfo.getArgs() != null && methodInfo.getArgs().length > 0) {
@@ -30,7 +29,6 @@ public enum JdbcConPrepareOrCreateStmtInterceptor implements NonReentrantInterce
         }
 
         if (stmt instanceof DynamicFieldAccessor) {
-            System.out.println("[agent] set the sqlInfo to the " + stmt.getClass().getCanonicalName());
             DynamicFieldAccessor.setDynamicFieldValue(stmt, sqlInfo);
         } else {
             System.err.printf("%s must implements %s\n", stmt.getClass().getCanonicalName(), DynamicFieldAccessor.class.getName());

@@ -13,7 +13,6 @@ public enum JdbcStmtPrepareInterceptor implements NonReentrantInterceptor {
 
     @Override
     public void doBefore(MethodInfo methodInfo, Context ctx) {
-        System.out.println("[agent] doBefore Execute the JdbcStmtPrepareInterceptor");
         Statement stmt = (Statement) methodInfo.getInvoker();
         if (!(stmt instanceof DynamicFieldAccessor)) {
             System.err.printf("%s must implements %s\n", stmt.getClass().getCanonicalName(), DynamicFieldAccessor.class.getName());

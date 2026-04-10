@@ -1,23 +1,32 @@
 package com.github.mawen12.easeagent.api.metrics;
 
-import java.util.HashMap;
+import java.util.Set;
+
+import static com.github.mawen12.easeagent.api.metrics.Metric.*;
 
 public class MetricName {
-    private final Metric.Type metricType;
-    private final Metric.SubType metricSubType;
+    private final Type metricType;
+    private final SubType metricSubType;
     private final String key;
+    private final Set<FieldWrapper> fields;
 
-    public MetricName(Metric.SubType metricSubType, String key, Metric.Type metricType) {
+    // cache
+    private final String name;
+
+    public MetricName(SubType metricSubType, String key, Type metricType, Set<FieldWrapper> fields) {
         this.metricType = metricType;
         this.metricSubType = metricSubType;
         this.key = key;
+        this.fields = fields;
+
+        this.name = toName(metricSubType, key, metricType);
     }
 
-    public Metric.Type getMetricType() {
+    public Type getMetricType() {
         return metricType;
     }
 
-    public Metric.SubType getMetricSubType() {
+    public SubType getMetricSubType() {
         return metricSubType;
     }
 
@@ -25,11 +34,24 @@ public class MetricName {
         return key;
     }
 
+    public Set<FieldWrapper> getFields() {
+        return fields;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public static MetricName metricNameFor(String name) {
         return new MetricName(
-                Metric.SubType.value(name.substring(0, 2)),
+                SubType.value(name.substring(0, 2)),
                 name.substring(3),
-                Metric.Type.values()[Integer.parseInt(name.substring(2, 3))]
+                Type.values()[Integer.parseInt(name.substring(2, 3))],
+                null
         );
+    }
+
+    public static String toName(SubType metricSubType, String key, Type metricType) {
+        return metricSubType.getCode() + metricType.ordinal() + key;
     }
 }
