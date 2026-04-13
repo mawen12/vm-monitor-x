@@ -12,12 +12,9 @@ import com.github.mawen12.easeagent.core.metrics.MetricServer;
 import com.github.mawen12.easeagent.core.utils.NetUtils;
 import com.github.mawen12.easeagent.core.utils.ServiceLoaderUtils;
 import net.bytebuddy.agent.builder.AgentBuilder;
-import sun.nio.ch.Net;
 
 import java.lang.instrument.Instrumentation;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Bootstrap {
 

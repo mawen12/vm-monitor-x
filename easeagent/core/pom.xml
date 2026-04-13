@@ -114,10 +114,26 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <shadedArtifactAttached>false</shadedArtifactAttached>
                             <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+<!--                                    <manifestEntries>-->
+<!--                                        <Premain-Class>com.github.mawen12.easeagent.loader.Main</Premain-Class>-->
+<!--                                        <Bootstrap-Class>com.github.mawen12.easeagent.core.Bootstrap</Bootstrap-Class>-->
+<!--                                        <Agent-Version>${project.version}</Agent-Version>-->
+<!--                                        <Can-Redefine-Classes>true</Can-Redefine-Classes>-->
+<!--                                        <Can-Retransform-Classes>true</Can-Retransform-Classes>-->
+<!--                                    </manifestEntries>-->
                                 </transformer>
                             </transformers>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.google</pattern>
+                                    <shadedPattern>com.github.mawen12.easeagent.shaded.com.google</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.codahale</pattern>
+                                    <shadedPattern>com.github.mawen12.easeagent.shaded.com.codahale</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
@@ -135,7 +151,7 @@
                         <manifestEntries>
                             <Premain-Class>com.github.mawen12.easeagent.loader.Main</Premain-Class>
                             <Bootstrap-Class>com.github.mawen12.easeagent.core.Bootstrap</Bootstrap-Class>
-                            <Agent-Version>${version}</Agent-Version>
+                            <Agent-Version>${project.version}</Agent-Version>
                             <Can-Redefine-Classes>true</Can-Redefine-Classes>
                             <Can-Retransform-Classes>true</Can-Retransform-Classes>
                         </manifestEntries>
