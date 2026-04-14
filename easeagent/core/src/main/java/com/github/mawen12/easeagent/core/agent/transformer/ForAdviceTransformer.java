@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.agent.transformer;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.core.agent.AdviceKeyOffsetMapping;
 import com.github.mawen12.easeagent.core.agent.CompoundClassLoader;
 import com.github.mawen12.easeagent.core.agent.advice.CommonInlineAdvice;
@@ -13,6 +14,7 @@ import net.bytebuddy.utility.JavaModule;
 
 import java.security.ProtectionDomain;
 
+@EaseAgentClassLoader
 public class ForAdviceTransformer implements AgentBuilder.Transformer {
 
     private final ForAdvice advice;

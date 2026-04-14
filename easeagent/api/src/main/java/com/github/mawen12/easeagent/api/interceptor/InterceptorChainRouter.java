@@ -1,8 +1,11 @@
 package com.github.mawen12.easeagent.api.interceptor;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+@SharedToBootstrap("used by CommonInlineAdvice")
 public class InterceptorChainRouter {
 
     public static final InterceptorChainRouter INSTANCE = new InterceptorChainRouter();

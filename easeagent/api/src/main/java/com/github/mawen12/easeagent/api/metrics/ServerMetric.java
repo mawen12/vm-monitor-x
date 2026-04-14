@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.api.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
 import com.github.mawen12.easeagent.api.utils.Sets;
 
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.DEFAULT;
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.ERROR;
 import static com.github.mawen12.easeagent.api.metrics.Metric.ValueFetcher.*;
 
+@SharedToBootstrap
 public class ServerMetric extends ServiceMetric {
     public static final NameFactory NAME_FACTORY = ServerNameFactory.INSTANCE.nameFactory();
 

@@ -1,11 +1,13 @@
 package com.github.mawen12.easeagent.core.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.Snapshot;
 import com.github.mawen12.easeagent.api.metrics.Timer;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+@EaseAgentClassLoader
 public class TimerImpl implements Timer, Snapshot.Wrapper {
     private final com.codahale.metrics.Timer timer;
     private final Snapshot snapshot;

@@ -1,10 +1,12 @@
 package com.github.mawen12.easeagent.core.agent;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
+@EaseAgentClassLoader
 public class AgentIgnore {
 
     public static ElementMatcher<TypeDescription> ignored() {

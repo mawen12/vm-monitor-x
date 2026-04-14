@@ -1,5 +1,8 @@
 package com.github.mawen12.easeagent.api.utils;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+
+@SharedToBootstrap
 public class Tuple<X, Y> {
     private final X x;
     private final Y y;

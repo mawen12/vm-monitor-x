@@ -1,11 +1,14 @@
 package com.github.mawen12.easeagent.core.plugins.httpservlet;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+
 import javax.servlet.AsyncContext;
 import javax.servlet.AsyncEvent;
 import javax.servlet.AsyncListener;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+@EaseAgentClassLoader
 public class InternalAsyncListener implements AsyncListener {
 
     private final Consumer<AsyncEvent> consumer;

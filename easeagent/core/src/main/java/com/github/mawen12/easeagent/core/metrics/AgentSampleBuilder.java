@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.MetricName;
 import com.github.mawen12.easeagent.api.metrics.Tags;
 import io.prometheus.client.Collector;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@EaseAgentClassLoader
 public class AgentSampleBuilder extends DefaultSampleBuilder {
     private final Map<String, Object> additionalAttributes;
     private final Tags tags;

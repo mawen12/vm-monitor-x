@@ -1,8 +1,10 @@
 package com.github.mawen12.easeagent.core.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.Histogram;
 import com.github.mawen12.easeagent.api.metrics.Snapshot;
 
+@EaseAgentClassLoader
 public class HistogramImpl implements Histogram, Snapshot.Wrapper {
 
     private final com.codahale.metrics.Histogram histogram;

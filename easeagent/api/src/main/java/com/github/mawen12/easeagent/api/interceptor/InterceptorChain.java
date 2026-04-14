@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.api.interceptor;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.utils.ContextUtils;
 
@@ -8,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SharedToBootstrap("used by CommonInlineAdvice")
 public class InterceptorChain {
     private final List<Interceptor> interceptors;
 

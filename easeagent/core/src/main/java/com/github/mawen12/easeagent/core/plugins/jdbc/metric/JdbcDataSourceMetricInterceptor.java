@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.plugins.jdbc.metric;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
 import com.github.mawen12.easeagent.api.interceptor.NonReentrantInterceptor;
@@ -10,6 +11,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
+@EaseAgentClassLoader
 public class JdbcDataSourceMetricInterceptor implements NonReentrantInterceptor {
     public static JdbcDataSourceMetricInterceptor INSTANCE = new JdbcDataSourceMetricInterceptor();
 

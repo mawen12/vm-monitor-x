@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.agent.transformer;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.field.DynamicFieldAccessor;
 import com.github.mawen12.easeagent.core.Bootstrap;
 import com.github.mawen12.easeagent.core.agent.advice.DynamicInstanceInitAdvice;
@@ -13,6 +14,7 @@ import net.bytebuddy.utility.JavaModule;
 
 import java.security.ProtectionDomain;
 
+@EaseAgentClassLoader
 public class DynamicFieldTransformer implements AgentBuilder.Transformer {
 
     private static final String FIELD_NAME = "agent$$Field$$Data";

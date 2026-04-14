@@ -1,10 +1,12 @@
 package com.github.mawen12.easeagent.core.config;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.config.Config;
 import lombok.AllArgsConstructor;
 
 import java.util.Map;
 
+@EaseAgentClassLoader
 @AllArgsConstructor
 public class ConfigImpl implements Config {
 

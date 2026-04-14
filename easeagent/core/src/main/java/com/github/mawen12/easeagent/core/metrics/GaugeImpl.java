@@ -1,7 +1,9 @@
 package com.github.mawen12.easeagent.core.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.Gauge;
 
+@EaseAgentClassLoader
 public class GaugeImpl<T> implements com.codahale.metrics.Gauge<T> {
     private Gauge<T> g;
 

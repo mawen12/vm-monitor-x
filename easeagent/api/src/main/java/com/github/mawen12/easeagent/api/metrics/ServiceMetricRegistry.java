@@ -1,11 +1,13 @@
 package com.github.mawen12.easeagent.api.metrics;
 
 import com.github.mawen12.easeagent.api.Agent;
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.BiFunction;
 
+@SharedToBootstrap
 public class ServiceMetricRegistry {
 
     public static final ConcurrentMap<Tags, ServiceMetric> INSTANCES = new ConcurrentHashMap<>();

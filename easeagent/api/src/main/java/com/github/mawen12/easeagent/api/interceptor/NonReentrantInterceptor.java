@@ -1,7 +1,9 @@
 package com.github.mawen12.easeagent.api.interceptor;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
 import com.github.mawen12.easeagent.api.context.Context;
 
+@SharedToBootstrap("used by InterceptorChain -> CommonInlineAdvice")
 public interface NonReentrantInterceptor extends Interceptor {
 
     void doBefore(MethodInfo methodInfo, Context ctx);

@@ -1,9 +1,10 @@
 package com.github.mawen12.easeagent.core.plugins.httpservlet.transformer;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.interceptor.Interceptor;
 import com.github.mawen12.easeagent.api.utils.Sets;
+import com.github.mawen12.easeagent.core.agent.spi.ClassTransformer;
 import com.github.mawen12.easeagent.core.agent.transformer.AbstractClassTransformer;
-import com.github.mawen12.easeagent.core.agent.transformer.ClassTransformer;
 import com.github.mawen12.easeagent.core.plugins.httpservlet.metric.DoFilterMetricInterceptor;
 import com.google.auto.service.AutoService;
 import net.bytebuddy.description.method.MethodDescription;
@@ -16,6 +17,7 @@ import java.util.Set;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
+@EaseAgentClassLoader
 @AutoService(ClassTransformer.class)
 public class DoFilterTransformer extends AbstractClassTransformer {
 

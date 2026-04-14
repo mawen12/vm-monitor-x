@@ -1,10 +1,12 @@
 package com.github.mawen12.easeagent.core.agent;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.utility.JavaModule;
 
+@EaseAgentClassLoader
 public class AgentListener implements AgentBuilder.Listener {
 
     @Override

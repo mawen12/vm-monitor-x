@@ -1,5 +1,8 @@
 package com.github.mawen12.easeagent.core.agent;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+
+@EaseAgentClassLoader
 public class CompoundClassLoader {
 
     public static ClassLoader compound(ClassLoader easeAgentClassLoader, ClassLoader other) {

@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.api.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
 import lombok.Getter;
 
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 import static com.github.mawen12.easeagent.api.metrics.Metric.*;
 
 @Getter
+@SharedToBootstrap
 public class MetricName {
     private final Type metricType;
     private final SubType metricSubType;

@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.MetricRegistry;
 import com.github.mawen12.easeagent.api.metrics.MetricRegistryManager;
 import com.github.mawen12.easeagent.api.metrics.NameFactory;
@@ -7,6 +8,7 @@ import com.github.mawen12.easeagent.api.metrics.Tags;
 
 import java.util.Map;
 
+@EaseAgentClassLoader("used by bootstrap")
 public class MetricRegistryManagerImpl implements MetricRegistryManager {
 
     private final MetricRegistry metricRegistry;

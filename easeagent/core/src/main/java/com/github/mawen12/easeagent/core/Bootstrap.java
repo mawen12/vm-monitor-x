@@ -1,10 +1,11 @@
 package com.github.mawen12.easeagent.core;
 
 import com.github.mawen12.easeagent.api.Agent;
-import com.github.mawen12.easeagent.api.bean.BeanProvider;
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+import com.github.mawen12.easeagent.api.spi.BeanProvider;
 import com.github.mawen12.easeagent.core.agent.AgentIgnore;
 import com.github.mawen12.easeagent.core.agent.AgentListener;
-import com.github.mawen12.easeagent.core.agent.transformer.ClassTransformer;
+import com.github.mawen12.easeagent.core.agent.spi.ClassTransformer;
 import com.github.mawen12.easeagent.core.config.ConfigFactory;
 import com.github.mawen12.easeagent.core.context.ContextManagerImpl;
 import com.github.mawen12.easeagent.core.metrics.MetricRegistryManagerImpl;
@@ -16,10 +17,10 @@ import net.bytebuddy.agent.builder.AgentBuilder;
 import java.lang.instrument.Instrumentation;
 import java.util.List;
 
+@EaseAgentClassLoader("from loader/Main then switch class loader to access")
 public class Bootstrap {
 
     public static ClassLoader LOADER;
-
 
     public static void premain(String args, Instrumentation inst, String jarPath) throws Exception {
         Bootstrap.LOADER = Thread.currentThread().getContextClassLoader();

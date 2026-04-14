@@ -1,5 +1,8 @@
 package com.github.mawen12.easeagent.api.utils;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+
+@SharedToBootstrap
 public class Null {
 
     public static <V> V of(Object o) {

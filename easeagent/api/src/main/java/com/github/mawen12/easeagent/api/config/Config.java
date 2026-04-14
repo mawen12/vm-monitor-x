@@ -1,7 +1,9 @@
 package com.github.mawen12.easeagent.api.config;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
 import com.github.mawen12.easeagent.api.utils.Null;
 
+@SharedToBootstrap
 public interface Config {
 
     String getString(String key);

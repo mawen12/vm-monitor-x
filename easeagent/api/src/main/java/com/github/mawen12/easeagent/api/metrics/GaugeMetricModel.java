@@ -1,9 +1,10 @@
 package com.github.mawen12.easeagent.api.metrics;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+
 import java.util.Map;
 
+@SharedToBootstrap
 public interface GaugeMetricModel {
 
     Map<String, Object> toHashMap();

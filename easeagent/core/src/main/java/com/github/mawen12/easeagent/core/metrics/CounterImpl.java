@@ -1,7 +1,9 @@
 package com.github.mawen12.easeagent.core.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.Counter;
 
+@EaseAgentClassLoader
 public class CounterImpl implements Counter {
     private com.codahale.metrics.Counter counter;
 

@@ -1,8 +1,10 @@
 package com.github.mawen12.easeagent.core.agent.transformer;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.interceptor.Interceptor;
 import com.github.mawen12.easeagent.api.interceptor.InterceptorChain;
 import com.github.mawen12.easeagent.api.interceptor.InterceptorChainRouter;
+import com.github.mawen12.easeagent.core.agent.spi.ClassTransformer;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
@@ -13,6 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@EaseAgentClassLoader
 public abstract class AbstractClassTransformer implements ClassTransformer, AgentBuilder.Transformer {
 
     protected abstract String getAdviceKey();

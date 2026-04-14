@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.agent;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import lombok.AllArgsConstructor;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.annotation.AnnotationDescription;
@@ -9,6 +10,7 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.implementation.bytecode.assign.Assigner;
 import net.bytebuddy.implementation.bytecode.constant.TextConstant;
 
+@EaseAgentClassLoader
 @AllArgsConstructor
 public class AdviceKeyOffsetMapping implements Advice.OffsetMapping {
 

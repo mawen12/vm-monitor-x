@@ -1,5 +1,7 @@
 package com.github.mawen12.easeagent.core.utils;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -7,6 +9,7 @@ import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.Objects;
 
+@EaseAgentClassLoader
 public class NetUtils {
 
     public static String getHostName() {

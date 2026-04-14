@@ -1,7 +1,9 @@
 package com.github.mawen12.easeagent.api.utils;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
 import com.github.mawen12.easeagent.api.context.Context;
 
+@SharedToBootstrap
 public class ContextUtils {
 
     private static final String BEGIN_TIME = ContextUtils.class.getSimpleName() + ".beginTime";

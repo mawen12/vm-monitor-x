@@ -1,13 +1,15 @@
 package com.github.mawen12.easeagent.core.plugins.jdbc.metric;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
-import com.github.mawen12.easeagent.api.metrics.*;
+import com.github.mawen12.easeagent.api.metrics.Meter;
+import com.github.mawen12.easeagent.api.metrics.MetricRegistry;
+import com.github.mawen12.easeagent.api.metrics.NameFactory;
+import com.github.mawen12.easeagent.api.metrics.ServiceMetric;
 import com.github.mawen12.easeagent.api.utils.ContextUtils;
 import com.github.mawen12.easeagent.api.utils.Sets;
 
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.github.mawen12.easeagent.api.metrics.Metric.Field.*;
 import static com.github.mawen12.easeagent.api.metrics.Metric.FieldWrapper.of;
@@ -15,6 +17,7 @@ import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.DEFAULT;
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.ERROR;
 import static com.github.mawen12.easeagent.api.metrics.Metric.ValueFetcher.*;
 
+@EaseAgentClassLoader
 public class JdbcMetric extends ServiceMetric {
     public static final NameFactory NAME_FACTORY = JdbcNameFactory.INSTANCE.nameFactory();
 

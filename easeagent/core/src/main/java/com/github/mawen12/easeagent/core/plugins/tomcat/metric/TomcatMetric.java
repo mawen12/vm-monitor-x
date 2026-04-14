@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.plugins.tomcat.metric;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.*;
 import com.github.mawen12.easeagent.api.utils.ScheduleHelper;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.DEFAULT;
 
+@EaseAgentClassLoader
 public class TomcatMetric extends ServiceMetric implements Runnable {
 
     private MBeanServer mbs;

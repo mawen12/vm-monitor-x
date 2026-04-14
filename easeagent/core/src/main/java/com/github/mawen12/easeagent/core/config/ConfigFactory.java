@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.config;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.config.Config;
 
 import java.io.File;
@@ -11,6 +12,7 @@ import java.util.Properties;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
+@EaseAgentClassLoader("used by Bootstrap")
 public class ConfigFactory {
 
     public static final String CONFIG_PATH_PROPERTY = "agent.config.path";

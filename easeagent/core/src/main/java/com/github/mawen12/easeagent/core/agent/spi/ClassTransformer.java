@@ -1,5 +1,6 @@
-package com.github.mawen12.easeagent.core.agent.transformer;
+package com.github.mawen12.easeagent.core.agent.spi;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
@@ -8,6 +9,7 @@ import net.bytebuddy.matcher.ElementMatchers;
 
 import java.util.Set;
 
+@EaseAgentClassLoader
 public interface ClassTransformer {
 
     default ElementMatcher<ClassLoader> getClassLoaderMatcher() {

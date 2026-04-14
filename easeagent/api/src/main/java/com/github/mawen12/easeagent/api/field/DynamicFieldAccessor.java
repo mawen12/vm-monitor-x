@@ -1,5 +1,8 @@
 package com.github.mawen12.easeagent.api.field;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+
+@SharedToBootstrap("used by DynamicInstanceInitAdvice")
 public interface DynamicFieldAccessor {
 
     void setAgent$$Field$$Data(Object data);

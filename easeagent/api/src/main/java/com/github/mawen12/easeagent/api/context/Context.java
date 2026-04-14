@@ -1,5 +1,8 @@
 package com.github.mawen12.easeagent.api.context;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+
+@SharedToBootstrap("used by CommonInlineAdvice")
 public interface Context {
 
     boolean isNoop();

@@ -1,9 +1,12 @@
 package com.github.mawen12.easeagent.core.plugins.jdbc.common;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+@EaseAgentClassLoader
 public class SqlInfo {
     private final Connection connection;
 

@@ -1,5 +1,8 @@
 package com.github.mawen12.easeagent.api.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+
+@SharedToBootstrap
 public interface Counter extends Metric {
     Counter NOOP = NoOp.INSTANCE;
 

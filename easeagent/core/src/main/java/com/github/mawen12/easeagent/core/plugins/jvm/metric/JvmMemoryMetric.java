@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.plugins.jvm.metric;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.*;
 import com.github.mawen12.easeagent.api.utils.ScheduleHelper;
 
@@ -14,6 +15,7 @@ import java.util.regex.Pattern;
 
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.DEFAULT;
 
+@EaseAgentClassLoader
 public class JvmMemoryMetric extends ServiceMetric implements Runnable {
 
     private static final Pattern WHITESPACE = Pattern.compile("[\\s]+");

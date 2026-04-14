@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.plugins.jvm.metric;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.*;
 import com.sun.management.GarbageCollectionNotificationInfo;
 import com.sun.management.GcInfo;
@@ -17,6 +18,7 @@ import static com.github.mawen12.easeagent.api.metrics.Metric.FieldWrapper.of;
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.DEFAULT;
 import static com.github.mawen12.easeagent.api.metrics.Metric.ValueFetcher.*;
 
+@EaseAgentClassLoader
 public class JvmGCMetric extends ServiceMetric {
     private static final String NO_GC = "No GC";
 

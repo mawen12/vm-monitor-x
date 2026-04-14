@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import fi.iki.elonen.NanoHTTPD;
 import io.prometheus.client.Collector;
 import io.prometheus.client.CollectorRegistry;
@@ -10,6 +11,7 @@ import java.io.StringWriter;
 import java.util.Collections;
 import java.util.Enumeration;
 
+@EaseAgentClassLoader
 public class MetricServer extends NanoHTTPD {
 
     public MetricServer(int port) {

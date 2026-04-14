@@ -1,11 +1,13 @@
 package com.github.mawen12.easeagent.core.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+@EaseAgentClassLoader
 public class MetricRegistryImpl implements MetricRegistry {
     private final com.codahale.metrics.MetricRegistry metricRegistry;
     private final Map<String, Metric> metricsCache = new HashMap<>();

@@ -1,10 +1,11 @@
 package com.github.mawen12.easeagent.core.plugins.demo;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.interceptor.Interceptor;
 import com.github.mawen12.easeagent.api.utils.Lists;
 import com.github.mawen12.easeagent.api.utils.Sets;
+import com.github.mawen12.easeagent.core.agent.spi.ClassTransformer;
 import com.github.mawen12.easeagent.core.agent.transformer.AbstractClassTransformer;
-import com.github.mawen12.easeagent.core.agent.transformer.ClassTransformer;
 import com.google.auto.service.AutoService;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
@@ -16,6 +17,7 @@ import java.util.Set;
 import static net.bytebuddy.matcher.ElementMatchers.any;
 import static net.bytebuddy.matcher.ElementMatchers.named;
 
+@EaseAgentClassLoader
 @AutoService(ClassTransformer.class)
 public class DemoTransformer extends AbstractClassTransformer {
 

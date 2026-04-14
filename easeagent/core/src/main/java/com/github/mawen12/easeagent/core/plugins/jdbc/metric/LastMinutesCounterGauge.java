@@ -1,12 +1,13 @@
 package com.github.mawen12.easeagent.core.plugins.jdbc.metric;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.GaugeMetricModel;
-import com.github.mawen12.easeagent.api.metrics.Meter;
 import lombok.AllArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@EaseAgentClassLoader
 @AllArgsConstructor
 public class LastMinutesCounterGauge implements GaugeMetricModel {
     private final long m1Count;

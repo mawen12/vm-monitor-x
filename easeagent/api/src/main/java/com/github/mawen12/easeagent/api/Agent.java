@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.api;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
 import com.github.mawen12.easeagent.api.config.Config;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.manager.ContextManager;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SharedToBootstrap("used by CommonInlineAdvice")
 public class Agent {
 
     public static ContextManager contextManager = () -> Context.NoOp.INSTANCE;

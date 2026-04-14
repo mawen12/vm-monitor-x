@@ -1,17 +1,18 @@
 package com.github.mawen12.easeagent.api.metrics;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.function.Function;
 
 public interface Metric {
 
     enum Type {
-        Timer,
-        Histogram,
-        Meter,
-        Counter,
-        Gauge;
+        Timer, Histogram, Meter, Counter, Gauge;
     }
 
+    @Getter
     enum SubType {
         DEFAULT("00"),
         ERROR("01"),
@@ -26,10 +27,6 @@ public interface Metric {
 
         SubType(String code) {
             this.code = code;
-        }
-
-        public String getCode() {
-            return code;
         }
 
         public static SubType value(String code) {
@@ -56,6 +53,7 @@ public interface Metric {
         }
     }
 
+    @Getter
     enum Field {
         MIN_EXECUTION_TIME("min"),
         MAX_EXECUTION_TIME("max"),
@@ -84,17 +82,12 @@ public interface Metric {
         TOTAL_COLLECTION_TIME("total_collection_time"),
         ;
 
-
-
         private final String field;
 
         Field(String field) {
             this.field = field;
         }
 
-        public String getField() {
-            return field;
-        }
     }
 
     enum ValueFetcher {
@@ -129,25 +122,14 @@ public interface Metric {
         }
     }
 
+    @Getter
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
     class FieldWrapper {
-        private Field field;
-        private ValueFetcher valueFetcher;
-
-        public FieldWrapper(Field field, ValueFetcher valueFetcher) {
-            this.field = field;
-            this.valueFetcher = valueFetcher;
-        }
+        private final Field field;
+        private final ValueFetcher valueFetcher;
 
         public static FieldWrapper of(Field field, ValueFetcher valueFetcher) {
             return new FieldWrapper(field, valueFetcher);
-        }
-
-        public Field getField() {
-            return field;
-        }
-
-        public ValueFetcher getValueFetcher() {
-            return valueFetcher;
         }
     }
 }

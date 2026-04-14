@@ -1,9 +1,11 @@
 package com.github.mawen12.easeagent.core.plugins.httpservlet;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.core.utils.ClassUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
+@EaseAgentClassLoader
 public class ServletUtils {
     public static final String START_TIME = ServletUtils.class.getName() + "$StartTime";
     public static final String BEST_MATCHING_PATTERN_ATTRIBUTE;

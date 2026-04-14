@@ -1,7 +1,9 @@
 package com.github.mawen12.easeagent.api.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
 import lombok.AllArgsConstructor;
 
+@SharedToBootstrap
 @AllArgsConstructor
 public abstract class ServiceMetric {
     protected final MetricRegistry metricRegistry;

@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.plugins.httpservlet.metric;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.ServerMetric;
 import com.github.mawen12.easeagent.api.metrics.ServiceMetricRegistry;
 import com.github.mawen12.easeagent.api.metrics.Tags;
@@ -8,6 +9,7 @@ import com.github.mawen12.easeagent.core.plugins.httpservlet.BaseServletIntercep
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@EaseAgentClassLoader
 public class DoFilterMetricInterceptor extends BaseServletInterceptor {
     public static final DoFilterMetricInterceptor INSTANCE = new DoFilterMetricInterceptor();
 

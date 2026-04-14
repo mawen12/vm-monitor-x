@@ -1,8 +1,11 @@
 package com.github.mawen12.easeagent.api.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+@SharedToBootstrap
 public interface Timer extends Snapshot, Metric {
     Timer NOOP = NoOp.INSTANCE;
 

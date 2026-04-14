@@ -1,11 +1,13 @@
 package com.github.mawen12.easeagent.api.interceptor;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @RequiredArgsConstructor
+@SharedToBootstrap("used by CommonInlineAdvice")
 public class MethodInfo {
     private final Object invoker;
     private final String type;

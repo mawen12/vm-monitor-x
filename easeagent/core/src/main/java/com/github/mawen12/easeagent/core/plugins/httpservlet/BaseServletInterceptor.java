@@ -1,13 +1,14 @@
 package com.github.mawen12.easeagent.core.plugins.httpservlet;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
 import com.github.mawen12.easeagent.api.interceptor.NonReentrantInterceptor;
 
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@EaseAgentClassLoader
 public abstract class BaseServletInterceptor implements NonReentrantInterceptor {
 
     @Override

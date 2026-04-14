@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.plugins.jdbc;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.field.DynamicFieldAccessor;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
@@ -8,6 +9,7 @@ import com.github.mawen12.easeagent.core.plugins.jdbc.common.SqlInfo;
 
 import java.sql.Statement;
 
+@EaseAgentClassLoader
 public enum JdbcStmtPrepareInterceptor implements NonReentrantInterceptor {
     INSTANCE;
 

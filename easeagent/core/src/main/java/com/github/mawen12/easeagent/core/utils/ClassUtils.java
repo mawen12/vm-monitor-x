@@ -1,7 +1,10 @@
 package com.github.mawen12.easeagent.core.utils;
 
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+
 import java.lang.reflect.Field;
 
+@EaseAgentClassLoader
 public class ClassUtils {
 
     public static Object getStaticField(String className, String fieldName) {

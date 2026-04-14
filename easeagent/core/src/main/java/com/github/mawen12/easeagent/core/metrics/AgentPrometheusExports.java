@@ -2,6 +2,7 @@ package com.github.mawen12.easeagent.core.metrics;
 
 import com.codahale.metrics.*;
 import com.codahale.metrics.Timer;
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.GaugeMetricModel;
 import com.github.mawen12.easeagent.api.metrics.Metric;
 import com.github.mawen12.easeagent.api.metrics.MetricName;
@@ -11,6 +12,7 @@ import io.prometheus.client.dropwizard.samplebuilder.SampleBuilder;
 
 import java.util.*;
 
+@EaseAgentClassLoader
 public class AgentPrometheusExports extends Collector implements Collector.Describable {
     private static final MetricFilter METRIC_FILTER = MetricFilter.ALL;
 

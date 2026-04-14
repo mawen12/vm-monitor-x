@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.api.metrics;
 
+import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
 import com.github.mawen12.easeagent.api.utils.Sets;
 import com.github.mawen12.easeagent.api.utils.Tuple;
 
@@ -7,6 +8,7 @@ import java.util.*;
 
 import static com.github.mawen12.easeagent.api.metrics.Metric.*;
 
+@SharedToBootstrap
 public interface NameFactory {
 
     static Builder createBuilder() {
