@@ -1,9 +1,12 @@
 package com.github.mawen12.easeagent.api.metrics;
 
+import lombok.Getter;
+
 import java.util.Set;
 
 import static com.github.mawen12.easeagent.api.metrics.Metric.*;
 
+@Getter
 public class MetricName {
     private final Type metricType;
     private final SubType metricSubType;
@@ -20,26 +23,6 @@ public class MetricName {
         this.fields = fields;
 
         this.name = toName(metricSubType, key, metricType);
-    }
-
-    public Type getMetricType() {
-        return metricType;
-    }
-
-    public SubType getMetricSubType() {
-        return metricSubType;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public Set<FieldWrapper> getFields() {
-        return fields;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public static MetricName metricNameFor(String name) {

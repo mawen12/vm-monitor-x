@@ -7,6 +7,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
 import java.lang.management.MemoryUsage;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -41,7 +42,7 @@ public class JvmMemoryMetric extends ServiceMetric implements Runnable {
             for (Map.Entry<Metric.SubType, MetricName> entry : map.entrySet()) {
                 MetricName metricName = entry.getValue();
 
-                Gauge<GaugeMetricModel.JvmMemoryGaugeMetricModel> gauge = () -> new GaugeMetricModel.JvmMemoryGaugeMetricModel(
+                Gauge<JvmMemoryGaugeMetricModel> gauge = () -> new JvmMemoryGaugeMetricModel(
                         usage.getInit(),
                         usage.getUsed(),
                         usage.getCommitted(),
@@ -50,6 +51,30 @@ public class JvmMemoryMetric extends ServiceMetric implements Runnable {
 
                 metricRegistry.gauge(metricName.getName(), () -> gauge);
             }
+        }
+    }
+
+    static class JvmMemoryGaugeMetricModel implements GaugeMetricModel {
+        private Long bytesInit;
+        private Long bytesUsed;
+        private Long bytesCommitted;
+        private Long bytesMax;
+
+        public JvmMemoryGaugeMetricModel(Long bytesInit, Long bytesUsed, Long bytesCommitted, Long bytesMax) {
+            this.bytesInit = bytesInit;
+            this.bytesUsed = bytesUsed;
+            this.bytesCommitted = bytesCommitted;
+            this.bytesMax = bytesMax;
+        }
+
+        @Override
+        public Map<String, Object> toHashMap() {
+            Map<String, Object> map = new HashMap<>();
+            map.put("bytes-init", bytesInit);
+            map.put("bytes-used", bytesUsed);
+            map.put("bytes-committed", bytesCommitted);
+            map.put("bytes-max", bytesMax);
+            return map;
         }
     }
 

@@ -34,9 +34,9 @@
         </dependencySet>
         <dependencySet>
             <outputDirectory>lib</outputDirectory>
-            <excludes>
-                <exclude>**/com/github/mawen12/easeagent/api/*</exclude>
-            </excludes>
+<!--            <excludes>-->
+<!--                <exclude>**/com/github/mawen12/easeagent/api/*</exclude>-->
+<!--            </excludes>-->
             <includes>
                 <include>com.github.mawen12.easeagent:core</include>
             </includes>

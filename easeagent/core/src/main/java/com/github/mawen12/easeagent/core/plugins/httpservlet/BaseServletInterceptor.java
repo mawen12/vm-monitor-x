@@ -30,8 +30,8 @@ public abstract class BaseServletInterceptor implements NonReentrantInterceptor 
         if (request.isAsyncStarted()) {
             request.getAsyncContext().addListener(new InternalAsyncListener(
                     asyncEvent -> {
-                        ServletResponse suppliedResponse = asyncEvent.getSuppliedResponse();
-                        internalAfter(key, asyncEvent.getThrowable(), request, response, start);
+                        HttpServletResponse suppliedResponse = (HttpServletResponse) asyncEvent.getSuppliedResponse();
+                        internalAfter(key, asyncEvent.getThrowable(), request, suppliedResponse, start);
                     }
             ));
         } else {

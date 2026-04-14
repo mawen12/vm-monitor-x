@@ -1,16 +1,14 @@
 package com.github.mawen12.easeagent.core.config;
 
 import com.github.mawen12.easeagent.api.config.Config;
+import lombok.AllArgsConstructor;
 
 import java.util.Map;
 
+@AllArgsConstructor
 public class ConfigImpl implements Config {
 
     private final Map<String, String> source;
-
-    public ConfigImpl(Map<String, String> source) {
-        this.source = source;
-    }
 
     @Override
     public String getString(String key) {

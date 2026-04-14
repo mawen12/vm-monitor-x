@@ -20,6 +20,5 @@ public enum SpringBootReadyInterceptor implements NonReentrantInterceptor {
             System.out.println("SpringBoot is ready, mark SpringBootReady state");
             Agent.markSpringBootReady();
         }
-        System.out.println("SpringBootReadyInterceptor doAfter, event: " + event);
     }
 }

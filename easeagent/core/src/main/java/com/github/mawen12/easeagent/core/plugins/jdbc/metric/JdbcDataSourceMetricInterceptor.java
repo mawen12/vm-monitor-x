@@ -5,7 +5,6 @@ import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
 import com.github.mawen12.easeagent.api.interceptor.NonReentrantInterceptor;
 import com.github.mawen12.easeagent.api.metrics.ServiceMetricRegistry;
 import com.github.mawen12.easeagent.api.metrics.Tags;
-import com.github.mawen12.easeagent.core.plugins.jdbc.JdbcMetric;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;

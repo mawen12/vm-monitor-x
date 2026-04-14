@@ -57,7 +57,7 @@ public class TomcatMetric extends ServiceMetric implements Runnable {
                 Integer currentThreadsBusy = getInt(name, "currentThreadsBusy");
                 Integer currentThreadCount = getInt(name, "currentThreadCount");
                 Integer maxThreads = getInt(name, "maxThreads");
-                Gauge<GaugeMetricModel.TomcatGaugeMetricModel> gauge = () -> new GaugeMetricModel.TomcatGaugeMetricModel(
+                Gauge<TomcatGaugeMetricModel> gauge = () -> new TomcatGaugeMetricModel(
                         currentThreadsBusy,
                         currentThreadCount,
                         maxThreads

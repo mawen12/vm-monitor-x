@@ -57,7 +57,7 @@ public class DruidDataSourceMetric extends ServiceMetric implements Runnable {
                     Integer poolingCount = getInt(name, "PoolingCount");
                     Integer maxActive = getInt(name, "MaxActive");
                     Integer waitThreadCount = getInt(name, "WaitThreadCount");
-                    Gauge<GaugeMetricModel.DruidDataSourceGaugeMetricModel> gauge = () -> new GaugeMetricModel.DruidDataSourceGaugeMetricModel(
+                    Gauge<DruidDataSourceGaugeMetricModel> gauge = () -> new DruidDataSourceGaugeMetricModel(
                             activeCount,
                             poolingCount,
                             maxActive,

@@ -1,4 +1,4 @@
-package com.github.mawen12.easeagent.core.plugins.jdbc;
+package com.github.mawen12.easeagent.core.plugins.jdbc.metric;
 
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.metrics.*;
@@ -6,6 +6,8 @@ import com.github.mawen12.easeagent.api.utils.ContextUtils;
 import com.github.mawen12.easeagent.api.utils.Sets;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.github.mawen12.easeagent.api.metrics.Metric.Field.*;
 import static com.github.mawen12.easeagent.api.metrics.Metric.FieldWrapper.of;
@@ -31,7 +33,8 @@ public class JdbcMetric extends ServiceMetric {
             meter(key, ERROR).mark();
         }
 
-        gauge(key, DEFAULT, () -> () -> new GaugeMetricModel.LastMinutesCounterGauge(meter));
+        // meter 仅统计每x分钟的事件速率，单位为事件数/秒
+        gauge(key, DEFAULT, () -> () -> new LastMinutesCounterGauge((long) meter.getOneMinuteRate() * 60, (long) meter.getFiveMinuteRate() * 60 * 5, (long) meter.getFifteenMinuteRate() * 60 * 15));
     }
 
     enum JdbcNameFactory implements NameFactory.Supplier {

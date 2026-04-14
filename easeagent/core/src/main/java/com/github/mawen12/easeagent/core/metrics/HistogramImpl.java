@@ -31,29 +31,4 @@ public class HistogramImpl implements Histogram, Snapshot.Wrapper {
     public Snapshot unwrap() {
         return snapshot;
     }
-
-//    @Override
-//    public double getValue(double quantile) {
-//        return histogram.getSnapshot().getValue(quantile);
-//    }
-//
-//    @Override
-//    public long[] getValues() {
-//        return histogram.getSnapshot().getValues();
-//    }
-//
-//    @Override
-//    public long getMax() {
-//        return histogram.getSnapshot().getMax();
-//    }
-//
-//    @Override
-//    public long getMin() {
-//        return histogram.getSnapshot().getMin();
-//    }
-//
-//    @Override
-//    public double getMean() {
-//        return histogram.getSnapshot().getMean();
-//    }
 }

@@ -33,29 +33,4 @@ public class TimerImpl implements Timer, Snapshot.Wrapper {
     public Snapshot unwrap() {
         return snapshot;
     }
-
-//    @Override
-//    public double getValue(double quantile) {
-//        return timer.getSnapshot().getValue(quantile);
-//    }
-//
-//    @Override
-//    public long[] getValues() {
-//        return timer.getSnapshot().getValues();
-//    }
-//
-//    @Override
-//    public long getMax() {
-//        return timer.getSnapshot().getMax();
-//    }
-//
-//    @Override
-//    public long getMin() {
-//        return timer.getSnapshot().getMin();
-//    }
-//
-//    @Override
-//    public double getMean() {
-//        return timer.getSnapshot().getMean();
-//    }
 }

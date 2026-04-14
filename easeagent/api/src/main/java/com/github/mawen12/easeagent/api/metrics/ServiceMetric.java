@@ -1,14 +1,11 @@
 package com.github.mawen12.easeagent.api.metrics;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public abstract class ServiceMetric {
     protected final MetricRegistry metricRegistry;
-
     protected final NameFactory nameFactory;
-
-    public ServiceMetric(MetricRegistry metricRegistry, NameFactory nameFactory) {
-        this.metricRegistry = metricRegistry;
-        this.nameFactory = nameFactory;
-    }
 
     public Counter counter(String key, Metric.SubType subType) {
         return metricRegistry.counter(nameFactory.counterName(key, subType));
