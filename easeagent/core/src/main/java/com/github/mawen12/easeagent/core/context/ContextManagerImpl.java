@@ -2,7 +2,7 @@ package com.github.mawen12.easeagent.core.context;
 
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
-import com.github.mawen12.easeagent.api.manager.ContextManager;
+import com.github.mawen12.easeagent.api.config.ContextManager;
 
 @EaseAgentClassLoader("used by Bootstrap, then export to Agent#contextManager")
 public class ContextManagerImpl implements ContextManager {
