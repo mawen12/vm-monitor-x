@@ -40,6 +40,10 @@ public class CommonInlineAdvice {
             chain.before(methodInfo, context);
         }
 
+        if (methodInfo.isChanged()) {
+            args = methodInfo.getArgs();
+        }
+
         return methodInfo;
     }
 

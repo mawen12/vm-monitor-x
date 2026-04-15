@@ -14,7 +14,6 @@
         <module>loader</module>
         <module>core</module>
         <module>demo</module>
-        <module>logging</module>
     </modules>
 
     <properties>

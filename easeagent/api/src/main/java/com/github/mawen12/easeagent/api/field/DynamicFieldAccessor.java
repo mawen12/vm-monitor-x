@@ -1,6 +1,8 @@
 package com.github.mawen12.easeagent.api.field;
 
+import com.github.mawen12.easeagent.api.Agent;
 import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+import com.github.mawen12.easeagent.api.logging.Logger;
 
 @SharedToBootstrap("used by DynamicInstanceInitAdvice")
 public interface DynamicFieldAccessor {
@@ -13,6 +15,7 @@ public interface DynamicFieldAccessor {
         if (target instanceof DynamicFieldAccessor) {
             return (T) ((DynamicFieldAccessor) target).getAgent$$Field$$Data();
         }
+
         return null;
     }
 

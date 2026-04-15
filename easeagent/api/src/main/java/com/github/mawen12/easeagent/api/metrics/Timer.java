@@ -11,6 +11,10 @@ public interface Timer extends Snapshot, Metric {
 
     void update(long duration, TimeUnit unit);
 
+    default void updateMs(long durationMs) {
+        this.update(durationMs, TimeUnit.MILLISECONDS);
+    }
+
     void update(Duration duration);
 
     enum NoOp implements Timer, Snapshot.Wrapper {

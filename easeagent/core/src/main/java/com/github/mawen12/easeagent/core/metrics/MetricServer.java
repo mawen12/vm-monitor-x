@@ -1,6 +1,8 @@
 package com.github.mawen12.easeagent.core.metrics;
 
+import com.github.mawen12.easeagent.api.Agent;
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+import com.github.mawen12.easeagent.api.logging.Logger;
 import fi.iki.elonen.NanoHTTPD;
 import io.prometheus.client.Collector;
 import io.prometheus.client.CollectorRegistry;
@@ -13,6 +15,7 @@ import java.util.Enumeration;
 
 @EaseAgentClassLoader
 public class MetricServer extends NanoHTTPD {
+    private static final Logger LOGGER = Agent.getLogger(MetricServer.class);
 
     public MetricServer(int port) {
         super(port);
@@ -20,6 +23,7 @@ public class MetricServer extends NanoHTTPD {
 
     public void start() throws IOException {
         super.start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
+        LOGGER.info("start agent metric server on port:{}", getListeningPort());
     }
 
     @Override

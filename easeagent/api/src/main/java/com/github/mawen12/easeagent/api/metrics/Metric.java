@@ -80,6 +80,50 @@ public interface Metric {
         TIMES_RATE("times_rate"),
 
         TOTAL_COLLECTION_TIME("total_collection_time"),
+
+
+        PRODUCER_MIN_EXECUTION_TIME("prodmin"),
+        PRODUCER_MAX_EXECUTION_TIME("prodmax"),
+        PRODUCER_MEAN_EXECUTION_TIME("prodmean"),
+        PRODUCER_P25_EXECUTION_TIME("prodp25"),
+        PRODUCER_P50_EXECUTION_TIME("prodp50"),
+        PRODUCER_P75_EXECUTION_TIME("prodp75"),
+        PRODUCER_P95_EXECUTION_TIME("prodp95"),
+        PRODUCER_P98_EXECUTION_TIME("prodp98"),
+        PRODUCER_P99_EXECUTION_TIME("prodp99"),
+        PRODUCER_P999_EXECUTION_TIME("prodp999"),
+
+        CONSUMER_MIN_EXECUTION_TIME("consmin"),
+        CONSUMER_MAX_EXECUTION_TIME("consmax"),
+        CONSUMER_MEAN_EXECUTION_TIME("consmean"),
+        CONSUMER_P25_EXECUTION_TIME("consp25"),
+        CONSUMER_P50_EXECUTION_TIME("consp50"),
+        CONSUMER_P75_EXECUTION_TIME("consp75"),
+        CONSUMER_P95_EXECUTION_TIME("consp95"),
+        CONSUMER_P98_EXECUTION_TIME("consp98"),
+        CONSUMER_P99_EXECUTION_TIME("consp99"),
+        CONSUMER_P999_EXECUTION_TIME("consp999"),
+
+        EXECUTION_PRODUCER_COUNT("prodcnt"),
+        EXECUTION_PRODUCER_ERROR_COUNT("proderrcnt"),
+        EXECUTION_CONSUMER_COUNT("conscnt"),
+        EXECUTION_CONSUMER_ERROR_COUNT("conserrcnt"),
+
+        PRODUCER_M1_RATE("prodm1"),
+        PRODUCER_M5_RATE("prodm5"),
+        PRODUCER_M15_RATE("prodm15"),
+        PRODUCER_M1_ERROR_RATE("proderrm1"),
+        PRODUCER_M5_ERROR_RATE("proderrm5"),
+        PRODUCER_M15_ERROR_RATE("proderrm15"),
+
+        CONSUMER_M1_RATE("consm1"),
+        CONSUMER_M5_RATE("consm5"),
+        CONSUMER_M15_RATE("consm15"),
+        CONSUMER_M1_ERROR_RATE("conserrm1"),
+        CONSUMER_M5_ERROR_RATE("conserrm5"),
+        CONSUMER_M15_ERROR_RATE("conserrm15"),
+
+
         ;
 
         private final String field;

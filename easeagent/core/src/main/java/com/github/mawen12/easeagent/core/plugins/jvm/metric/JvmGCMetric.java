@@ -27,7 +27,7 @@ public class JvmGCMetric extends ServiceMetric {
     }
 
     public static void buildAndRun() {
-        Tags tags = new Tags("application", "jvm-gc", "resource");
+        Tags tags = new Tags("app", "jvm-gc", "resource");
 
         JvmGCMetric metric = ServiceMetricRegistry.getOrCreate(tags, NameFactorySupplier.INSTANCE, JvmGCMetric::new);
         metric.run();

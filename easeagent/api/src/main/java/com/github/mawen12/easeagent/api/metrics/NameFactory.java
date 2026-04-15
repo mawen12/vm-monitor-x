@@ -6,7 +6,12 @@ import com.github.mawen12.easeagent.api.utils.Tuple;
 
 import java.util.*;
 
+import static com.github.mawen12.easeagent.api.metrics.Metric.Field.*;
 import static com.github.mawen12.easeagent.api.metrics.Metric.*;
+import static com.github.mawen12.easeagent.api.metrics.Metric.FieldWrapper.of;
+import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.DEFAULT;
+import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.ERROR;
+import static com.github.mawen12.easeagent.api.metrics.Metric.ValueFetcher.*;
 
 @SharedToBootstrap
 public interface NameFactory {
@@ -14,6 +19,41 @@ public interface NameFactory {
     static Builder createBuilder() {
         return new Builder();
     }
+
+    static NameFactory createDefault() {
+        return NameFactory.createBuilder()
+                .timer(DEFAULT,
+                        of(MIN_EXECUTION_TIME, SnapshotMinValue),
+                        of(MAX_EXECUTION_TIME, SnapshotMaxValue),
+                        of(MEAN_EXECUTION_TIME, SnapshotMeanValue),
+                        of(P25_EXECUTION_TIME, Snapshot25thPercentileValue),
+                        of(P50_EXECUTION_TIME, Snapshot50thPercentileValue),
+                        of(P75_EXECUTION_TIME, Snapshot75thPercentileValue),
+                        of(P95_EXECUTION_TIME, Snapshot95thPercentileValue),
+                        of(P98_EXECUTION_TIME, Snapshot98thPercentileValue),
+                        of(P99_EXECUTION_TIME, Snapshot99thPercentileValue),
+                        of(P999_EXECUTION_TIME, Snapshot999thPercentileValue)
+                )
+                .gauge(DEFAULT, new HashSet<>())
+                .meter(DEFAULT,
+                        of(M1_RATE, MeterM1Rate),
+                        of(M5_RATE, MeterM5Rate),
+                        of(M15_RATE, MeterM15Rate)
+                )
+                .meter(ERROR,
+                        of(M1_ERR_RATE, MeterM1Rate),
+                        of(M5_ERR_RATE, MeterM5Rate),
+                        of(M15_ERR_RATE, MeterM15Rate)
+                )
+                .counter(DEFAULT,
+                        of(EXECUTION_COUNT, CountingCount)
+                )
+                .counter(ERROR,
+                        of(EXECUTION_ERR_COUNT, CountingCount)
+                )
+                .build();
+    }
+
 
     String counterName(String key, SubType subType);
 
@@ -41,14 +81,14 @@ public interface NameFactory {
         NameFactory nameFactory();
     }
 
-    class Default implements NameFactory {
+    class NameFactoryImpl implements NameFactory {
         private final List<Tuple<SubType, Set<FieldWrapper>>> histograms;
         private final List<Tuple<SubType, Set<FieldWrapper>>> counters;
         private final List<Tuple<SubType, Set<FieldWrapper>>> timers;
         private final List<Tuple<SubType, Set<FieldWrapper>>> gauges;
         private final List<Tuple<SubType, Set<FieldWrapper>>> meters;
 
-        public Default(List<Tuple<SubType, Set<FieldWrapper>>> histograms, List<Tuple<SubType, Set<FieldWrapper>>> counters, List<Tuple<SubType, Set<FieldWrapper>>> timers, List<Tuple<SubType, Set<FieldWrapper>>> gauges, List<Tuple<SubType, Set<FieldWrapper>>> meters) {
+        public NameFactoryImpl(List<Tuple<SubType, Set<FieldWrapper>>> histograms, List<Tuple<SubType, Set<FieldWrapper>>> counters, List<Tuple<SubType, Set<FieldWrapper>>> timers, List<Tuple<SubType, Set<FieldWrapper>>> gauges, List<Tuple<SubType, Set<FieldWrapper>>> meters) {
             this.histograms = histograms;
             this.counters = counters;
             this.timers = timers;
@@ -138,7 +178,7 @@ public interface NameFactory {
         }
 
         public NameFactory build() {
-            return new Default(histograms, counters, timers, gauges, meters);
+            return new NameFactoryImpl(histograms, counters, timers, gauges, meters);
         }
 
         public Builder meter(SubType subType, Set<FieldWrapper> fields) {

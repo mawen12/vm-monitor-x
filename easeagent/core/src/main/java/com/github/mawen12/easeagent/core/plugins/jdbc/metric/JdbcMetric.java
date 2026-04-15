@@ -8,7 +8,9 @@ import com.github.mawen12.easeagent.api.metrics.NameFactory;
 import com.github.mawen12.easeagent.api.metrics.ServiceMetric;
 import com.github.mawen12.easeagent.api.utils.ContextUtils;
 import com.github.mawen12.easeagent.api.utils.Sets;
+import com.github.mawen12.easeagent.core.metrics.LastMinutesCounterGauge;
 
+import javax.naming.Name;
 import java.time.Duration;
 
 import static com.github.mawen12.easeagent.api.metrics.Metric.Field.*;
@@ -45,37 +47,7 @@ public class JdbcMetric extends ServiceMetric {
 
         @Override
         public NameFactory nameFactory() {
-            return NameFactory.createBuilder()
-                    .timer(DEFAULT,
-                            of(MIN_EXECUTION_TIME, SnapshotMinValue),
-                            of(MAX_EXECUTION_TIME, SnapshotMaxValue),
-                            of(MEAN_EXECUTION_TIME, SnapshotMeanValue),
-                            of(P25_EXECUTION_TIME, Snapshot25thPercentileValue),
-                            of(P50_EXECUTION_TIME, Snapshot50thPercentileValue),
-                            of(P75_EXECUTION_TIME, Snapshot75thPercentileValue),
-                            of(P95_EXECUTION_TIME, Snapshot95thPercentileValue),
-                            of(P98_EXECUTION_TIME, Snapshot98thPercentileValue),
-                            of(P99_EXECUTION_TIME, Snapshot99thPercentileValue),
-                            of(P999_EXECUTION_TIME, Snapshot999thPercentileValue)
-                    )
-                    .gauge(DEFAULT, Sets.of())
-                    .meter(DEFAULT,
-                            of(M1_RATE, MeterM1Rate),
-                            of(M5_RATE, MeterM5Rate),
-                            of(M15_RATE, MeterM15Rate)
-                    )
-                    .meter(ERROR,
-                            of(M1_ERR_RATE, MeterM1Rate),
-                            of(M5_ERR_RATE, MeterM5Rate),
-                            of(M15_ERR_RATE, MeterM15Rate)
-                    )
-                    .counter(DEFAULT,
-                            of(EXECUTION_COUNT, CountingCount)
-                    )
-                    .counter(ERROR,
-                            of(EXECUTION_ERR_COUNT, CountingCount)
-                    )
-                    .build();
+            return NameFactory.createDefault();
         }
     }
 }

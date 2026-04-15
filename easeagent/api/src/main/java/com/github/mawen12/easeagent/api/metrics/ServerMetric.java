@@ -89,35 +89,7 @@ public class ServerMetric extends ServiceMetric {
 
         @Override
         public NameFactory nameFactory() {
-            return NameFactory.createBuilder()
-                    .counter(DEFAULT,
-                            of(EXECUTION_COUNT, CountingCount))
-                    .counter(ERROR,
-                            of(EXECUTION_ERR_COUNT, CountingCount))
-                    .meter(DEFAULT,
-                            of(M1_RATE, MeterM1Rate),
-                            of(M5_RATE, MeterM5Rate),
-                            of(M15_RATE, MeterM15Rate)
-                    )
-                    .meter(ERROR,
-                            of(M1_ERR_RATE, MeterM1Rate),
-                            of(M5_ERR_RATE, MeterM5Rate),
-                            of(M15_ERR_RATE, MeterM15Rate)
-                    )
-                    .gauge(DEFAULT, Sets.of())
-                    .timer(DEFAULT,
-                            of(MIN_EXECUTION_TIME, SnapshotMinValue),
-                            of(MAX_EXECUTION_TIME, SnapshotMaxValue),
-                            of(MEAN_EXECUTION_TIME, SnapshotMeanValue),
-                            of(P25_EXECUTION_TIME, Snapshot25thPercentileValue),
-                            of(P50_EXECUTION_TIME, Snapshot50thPercentileValue),
-                            of(P75_EXECUTION_TIME, Snapshot75thPercentileValue),
-                            of(P95_EXECUTION_TIME, Snapshot95thPercentileValue),
-                            of(P98_EXECUTION_TIME, Snapshot98thPercentileValue),
-                            of(P99_EXECUTION_TIME, Snapshot99thPercentileValue),
-                            of(P999_EXECUTION_TIME, Snapshot999thPercentileValue)
-                    )
-                    .build();
+            return NameFactory.createDefault();
         }
     }
 }

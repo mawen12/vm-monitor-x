@@ -17,4 +17,15 @@ public class MethodInfo {
     private Throwable throwable;
     @Setter
     private Object retValue;
+
+    private boolean changed;
+
+    public boolean isSuccess() {
+        return this.throwable == null;
+    }
+
+    public void changeArg(int index, Object arg) {
+        this.args[index] = arg;
+        this.changed = true;
+    }
 }

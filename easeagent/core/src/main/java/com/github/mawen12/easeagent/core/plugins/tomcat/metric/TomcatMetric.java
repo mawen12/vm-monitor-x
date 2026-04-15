@@ -25,7 +25,7 @@ public class TomcatMetric extends ServiceMetric implements Runnable {
     }
 
     public static void buildAndRun() {
-        Tags tags = new Tags("application", "tomcat", "resource");
+        Tags tags = new Tags("app", "tomcat", "resource");
         TomcatMetric metric = ServiceMetricRegistry.getOrCreate(tags, TomcatNameFactory.INSTANCE, TomcatMetric::new);
 
         metric.init();

@@ -1,12 +1,16 @@
 package com.github.mawen12.easeagent.core.plugins.httpservlet;
 
+import com.github.mawen12.easeagent.api.Agent;
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+import com.github.mawen12.easeagent.api.logging.Logger;
 import com.github.mawen12.easeagent.core.utils.ClassUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
 @EaseAgentClassLoader
 public class ServletUtils {
+    private static final Logger LOGGER = Agent.getLogger(ServletUtils.class);
+
     public static final String START_TIME = ServletUtils.class.getName() + "$StartTime";
     public static final String BEST_MATCHING_PATTERN_ATTRIBUTE;
 
@@ -14,8 +18,10 @@ public class ServletUtils {
         String pattern = null;
         Object field = ClassUtils.getStaticField("org.springframework.web.servlet.HandlerMapping", "BEST_MATCHING_PATTERN_ATTRIBUTE");
         if (field == null || !(field instanceof String)) {
+            LOGGER.debug("class<{}>.{} not found", "org.springframework.web.servlet.HandlerMapping", "BEST_MATCHING_PATTERN_ATTRIBUTE");
             pattern = "org.springframework.web.servlet.HandlerMapping.bestMatchingPattern";
         } else {
+            LOGGER.debug("class<{}>.{} is not String", "org.springframework.web.servlet.HandlerMapping", "BEST_MATCHING_PATTERN_ATTRIBUTE");
             pattern = (String) field;
         }
         BEST_MATCHING_PATTERN_ATTRIBUTE = pattern;

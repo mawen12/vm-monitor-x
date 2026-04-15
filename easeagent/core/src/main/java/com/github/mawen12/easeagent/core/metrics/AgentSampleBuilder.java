@@ -43,13 +43,13 @@ public class AgentSampleBuilder extends DefaultSampleBuilder {
 
     private String rebuildName(String dropwizardName, List<String> labelNames, List<String> labelValues) {
         MetricName metricName = MetricName.metricNameFor(dropwizardName);
-        labelNames.add("MetricType");
-        labelNames.add("MetricSubType");
+        labelNames.add("Type");
+        labelNames.add("SubType");
         labelNames.add(tags.getKeyFieldName());
         labelValues.add(metricName.getMetricType().name());
         labelValues.add(metricName.getMetricSubType().name());
         labelValues.add(metricName.getKey());
 
-        return new StringBuilder().append(tags.getCategory()).append(".").append(tags.getType()).toString();
+        return tags.getCategory() + "." + tags.getType();
     }
 }

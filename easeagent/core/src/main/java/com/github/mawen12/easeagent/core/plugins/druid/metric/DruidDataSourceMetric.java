@@ -26,7 +26,7 @@ public class DruidDataSourceMetric extends ServiceMetric implements Runnable {
     }
 
     public static void buildAndRun() {
-        Tags tags = new Tags("application", "druid-pool", "resource");
+        Tags tags = new Tags("app", "druid-pool", "resource");
         DruidDataSourceMetric metric = ServiceMetricRegistry.getOrCreate(tags, DruidNameFactory.INSTANCE, DruidDataSourceMetric::new);
         metric.init();
 

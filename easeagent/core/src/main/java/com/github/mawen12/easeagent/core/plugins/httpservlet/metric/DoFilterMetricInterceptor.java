@@ -19,7 +19,7 @@ public class DoFilterMetricInterceptor extends BaseServletInterceptor {
 
     @Override
     public void init() {
-        Tags tags = new Tags("application", "http-request", "url");
+        Tags tags = new Tags("app", "http-request", "url");
         metric = ServiceMetricRegistry.getOrCreate(tags, ServerMetric.NAME_FACTORY, ServerMetric::new);
     }
 

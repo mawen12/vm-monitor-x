@@ -14,6 +14,7 @@ public class AgentIgnore {
                 .or(nameStartsWith("java.").and(not(named("java.util.concurrent.ThreadPoolExecutor"))))
                 .or(nameStartsWith("sun."))
                 .or(nameStartsWith("javax."))
+                .or(nameStartsWith("org.apache.logging"))
                 // 忽略自身的包，即可解决出现 com.github.mawen12.easeagent.api.metrics.Metric 找不到的问题
                 .or(nameStartsWith("com.github.mawen12.easeagent."));
     }

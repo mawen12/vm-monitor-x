@@ -16,7 +16,7 @@ public class JdbcStmtMetricInterceptor implements NonReentrantInterceptor {
 
     @Override
     public void init() {
-        Tags tags = new Tags("application", "jdbc-statement", "signature");
+        Tags tags = new Tags("app", "jdbc-statement", "signature");
         metric = ServiceMetricRegistry.getOrCreate(tags, JdbcMetric.NAME_FACTORY, JdbcMetric::new);
     }
 

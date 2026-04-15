@@ -3,6 +3,7 @@ package com.github.mawen12.easeagent.core.plugins.jdbc;
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.field.DynamicFieldAccessor;
+import com.github.mawen12.easeagent.api.field.DynamicFieldAccessorHelper;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
 import com.github.mawen12.easeagent.api.interceptor.NonReentrantInterceptor;
 import com.github.mawen12.easeagent.core.plugins.jdbc.common.SqlInfo;
@@ -21,7 +22,7 @@ public enum JdbcStmtPrepareInterceptor implements NonReentrantInterceptor {
             return;
         }
 
-        SqlInfo sqlInfo = DynamicFieldAccessor.getDynamicFieldValue(stmt);
+        SqlInfo sqlInfo = DynamicFieldAccessorHelper.getDynamicFieldValue(stmt);
         if (sqlInfo == null) {
             return;
         }

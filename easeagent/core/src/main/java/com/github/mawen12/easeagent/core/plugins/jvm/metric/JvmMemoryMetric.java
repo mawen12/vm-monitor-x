@@ -25,7 +25,7 @@ public class JvmMemoryMetric extends ServiceMetric implements Runnable {
     }
 
     public static void buildAndRun() {
-        Tags tags = new Tags("application", "jvm-memory", "resource");
+        Tags tags = new Tags("app", "jvm-memory", "resource");
         JvmMemoryMetric metric = ServiceMetricRegistry.getOrCreate(tags, JvmMemoryNameFactory.INSTANCE, JvmMemoryMetric::new);
 
         ScheduleHelper.DEFAULT.execute(10, 10, metric);
