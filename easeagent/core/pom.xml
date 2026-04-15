@@ -89,6 +89,13 @@
             <version>3.4.2</version>
         </dependency>
 
+        <!-- trace -->
+        <dependency>
+            <groupId>io.zipkin.brave</groupId>
+            <artifactId>brave</artifactId>
+            <version>6.3.0</version>
+        </dependency>
+
         <!--    plugin: httpservlet    -->
         <dependency>
             <groupId>javax.servlet</groupId>

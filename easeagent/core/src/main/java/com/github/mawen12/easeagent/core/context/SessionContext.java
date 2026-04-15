@@ -2,7 +2,11 @@ package com.github.mawen12.easeagent.core.context;
 
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
+import com.github.mawen12.easeagent.api.trace.Span;
+import com.github.mawen12.easeagent.api.trace.Tracing;
 import com.github.mawen12.easeagent.api.utils.Null;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +16,8 @@ public class SessionContext implements Context {
 
     private final Map<Object, Object> context = new HashMap<>();
     private final Map<Object, Integer> entered = new HashMap<>();
+    @Getter
+    private Tracing tracing = Tracing.NOOP;
 
     @Override
     public boolean isNoop() {
@@ -54,5 +60,14 @@ public class SessionContext implements Context {
         }
         entered.put(key, count - 1);
         return count;
+    }
+
+    public void setTracing(Tracing tracing) {
+        this.tracing = Null.of(tracing, Tracing.NOOP);
+    }
+
+    @Override
+    public Span nextSpan() {
+        return tracing.nextSpan();
     }
 }

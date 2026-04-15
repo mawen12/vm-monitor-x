@@ -10,6 +10,7 @@ import com.github.mawen12.easeagent.api.metrics.MetricRegistry;
 import com.github.mawen12.easeagent.api.metrics.MetricRegistryManager;
 import com.github.mawen12.easeagent.api.metrics.NameFactory;
 import com.github.mawen12.easeagent.api.metrics.Tags;
+import com.github.mawen12.easeagent.api.trace.Tracing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class Agent {
     public static Map<String, Object> additionalAttributes = new HashMap<>();
     public static Config config;
     public static Map<Agent.State, List<Listener>> listeners = new HashMap<>();
+    public static Tracing tracing = Tracing.NOOP;
 
     public static Context getContext() {
         return contextManager.getContext();

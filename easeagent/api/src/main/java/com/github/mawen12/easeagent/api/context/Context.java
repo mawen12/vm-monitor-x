@@ -1,6 +1,7 @@
 package com.github.mawen12.easeagent.api.context;
 
 import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+import com.github.mawen12.easeagent.api.trace.Span;
 
 @SharedToBootstrap("used by CommonInlineAdvice")
 public interface Context {
@@ -25,7 +26,11 @@ public interface Context {
         return exit(key) == times;
     }
 
-    enum NoOp implements Context{
+    //-------------------------------------------
+
+    Span nextSpan();
+
+    enum NoOp implements Context {
         INSTANCE;
 
         @Override
@@ -56,6 +61,11 @@ public interface Context {
         @Override
         public int exit(Object key) {
             return 0;
+        }
+
+        @Override
+        public Span nextSpan() {
+            return Span.NOOP;
         }
     }
 }

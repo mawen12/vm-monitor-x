@@ -6,6 +6,7 @@ import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
 import com.github.mawen12.easeagent.api.interceptor.NonReentrantInterceptor;
 import com.github.mawen12.easeagent.api.metrics.ServiceMetricRegistry;
 import com.github.mawen12.easeagent.api.metrics.Tags;
+import com.github.mawen12.easeagent.core.plugins.jdbc.common.JdbcUtils;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -38,24 +39,9 @@ public class JdbcDataSourceMetricInterceptor implements NonReentrantInterceptor 
             key = "err-conn";
             success = false;
         } else {
-            key = getUrl(con);
+            key = JdbcUtils.getUrl(con);
         }
 
         metric.collectMetric(key, success, ctx);
-    }
-
-    private static String getUrl(Connection conn) {
-        try {
-            DatabaseMetaData meta = conn.getMetaData();
-            String url = meta.getURL();
-            int idx = url.indexOf("?");
-            if (idx == -1) {
-                return url;
-            }
-            return url.substring(0, idx);
-        } catch (SQLException ignored) {
-
-        }
-        return null;
     }
 }

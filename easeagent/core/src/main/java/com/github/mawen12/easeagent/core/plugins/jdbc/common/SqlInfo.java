@@ -1,6 +1,7 @@
 package com.github.mawen12.easeagent.core.plugins.jdbc.common;
 
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+import lombok.Getter;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @EaseAgentClassLoader
 public class SqlInfo {
+    @Getter
     private final Connection connection;
 
     private final List<String> sqlList = new ArrayList<>();
