@@ -2,11 +2,10 @@ package com.github.mawen12.easeagent.core.context;
 
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
-import com.github.mawen12.easeagent.api.trace.Span;
-import com.github.mawen12.easeagent.api.trace.Tracing;
+import com.github.mawen12.easeagent.api.trace.*;
 import com.github.mawen12.easeagent.api.utils.Null;
+import com.github.mawen12.easeagent.core.plugins.httpservlet.common.RequestContextImpl;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +66,31 @@ public class SessionContext implements Context {
     }
 
     @Override
+    public Span currentSpan() {
+        return tracing.currentSpan();
+    }
+
+    @Override
     public Span nextSpan() {
         return tracing.nextSpan();
+    }
+
+    @Override
+    public Setter.RequestContext clientRequest(Request request) {
+        Span span = tracing.nextSpan();
+        RequestContextImpl requestContext = new RequestContextImpl(request, span, span.maybeScope());
+
+        return requestContext;
+    }
+
+    @Override
+    public Setter.RequestContext serverReceive(Request request) {
+        Span span = tracing.nextSpan();
+        RequestContextImpl requestContext = new RequestContextImpl(request, span, span.maybeScope());
+
+        span.kind(request.kind());
+        span.name(request.name());
+
+        return requestContext;
     }
 }

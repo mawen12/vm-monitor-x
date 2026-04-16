@@ -5,4 +5,9 @@ import com.github.mawen12.easeagent.core.plugins.mongodb.common.MongoBaseInterce
 
 @SharedToBootstrap
 public class MongoBaseMetricInterceptor extends MongoBaseInterceptor {
+
+    @Override
+    public Order order() {
+        return Order.METRIC;
+    }
 }

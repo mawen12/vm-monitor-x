@@ -4,12 +4,12 @@
         <RollingFile name="RollingFile" fileName="logs/agent.log" filePattern="logs/agent-%d{MM-dd-yyyy}.log"
                      ignoreExceptions="false">
             <PatternLayout>
-                <Pattern>%d [%10.10t] %5p %15.15c{1} - %msg%n</Pattern>
+                <Pattern>%d [%10.10t] %5p %25.25c{1} - %msg%n</Pattern>
             </PatternLayout>
             <TimeBasedTriggeringPolicy/>
         </RollingFile>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d [%10.10t] %5p %15.15c{1} - [%X{traceId}/%X{spanId}] %msg%n"/>
+            <PatternLayout pattern="%d [%10.10t] %5p %25.25c{1} - [%X{traceId}/%X{spanId}] %msg%n"/>
         </Console>
     </Appenders>
     <Loggers>

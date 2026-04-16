@@ -1,6 +1,8 @@
 package com.github.mawen12.easeagent.api.context;
 
 import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+import com.github.mawen12.easeagent.api.trace.Request;
+import com.github.mawen12.easeagent.api.trace.Setter;
 import com.github.mawen12.easeagent.api.trace.Span;
 
 @SharedToBootstrap("used by CommonInlineAdvice")
@@ -28,7 +30,13 @@ public interface Context {
 
     //-------------------------------------------
 
+    Span currentSpan();
+
     Span nextSpan();
+
+    Setter.RequestContext clientRequest(Request request);
+
+    Setter.RequestContext serverReceive(Request request);
 
     enum NoOp implements Context {
         INSTANCE;
@@ -64,8 +72,25 @@ public interface Context {
         }
 
         @Override
+        public Span currentSpan() {
+            return Span.NOOP;
+        }
+
+        @Override
         public Span nextSpan() {
             return Span.NOOP;
         }
+
+        @Override
+        public Setter.RequestContext clientRequest(Request request) {
+            return Setter.RequestContext.NOOP;
+        }
+
+        @Override
+        public Setter.RequestContext serverReceive(Request request) {
+            return Setter.RequestContext.NOOP;
+        }
+
+
     }
 }

@@ -8,6 +8,7 @@ import com.github.mawen12.easeagent.core.agent.spi.ClassTransformer;
 import com.github.mawen12.easeagent.core.agent.transformer.AbstractClassTransformer;
 import com.github.mawen12.easeagent.core.plugins.jdbc.JdbcStmtPrepareInterceptor;
 import com.github.mawen12.easeagent.core.plugins.jdbc.metric.JdbcStmtMetricInterceptor;
+import com.github.mawen12.easeagent.core.plugins.jdbc.trace.JdbcStmtTracingInterceptor;
 import com.google.auto.service.AutoService;
 import net.bytebuddy.description.NamedElement;
 import net.bytebuddy.description.method.MethodDescription;
@@ -35,7 +36,7 @@ public class JdbcStatementTransformer extends AbstractClassTransformer {
 
     @Override
     protected List<Interceptor> getInterceptors() {
-        return Lists.of(JdbcStmtPrepareInterceptor.INSTANCE, JdbcStmtMetricInterceptor.INSTANCE);
+        return Lists.of(JdbcStmtPrepareInterceptor.INSTANCE, JdbcStmtMetricInterceptor.INSTANCE, JdbcStmtTracingInterceptor.INSTANCE);
     }
 
     @Override

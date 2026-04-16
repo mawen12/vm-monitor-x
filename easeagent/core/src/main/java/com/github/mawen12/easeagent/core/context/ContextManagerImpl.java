@@ -1,5 +1,6 @@
 package com.github.mawen12.easeagent.core.context;
 
+import brave.Tracer;
 import com.github.mawen12.easeagent.api.Agent;
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;

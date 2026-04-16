@@ -31,4 +31,9 @@ public class KafkaMessageListenerMetricInterceptor implements NonReentrantInterc
         ConsumerRecord<?, ?> consumerRecord = (ConsumerRecord<?, ?>) methodInfo.getArgs()[0];
         metric.collectConsumeMetric(consumerRecord.topic(), ContextUtils.getDuration(ctx), methodInfo.isSuccess());
     }
+
+    @Override
+    public Order order() {
+        return Order.METRIC;
+    }
 }

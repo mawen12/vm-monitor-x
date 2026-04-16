@@ -32,4 +32,9 @@ public enum JdbcConPrepareOrCreateStmtInterceptor implements NonReentrantInterce
 
         DynamicFieldAccessorHelper.setDynamicFieldValue(stmt, sqlInfo);
     }
+
+    @Override
+    public Order order() {
+        return Order.PREPARE;
+    }
 }

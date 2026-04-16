@@ -33,7 +33,7 @@ public class JdbcStmtMetricInterceptor implements NonReentrantInterceptor {
     }
 
     @Override
-    public int order() {
-        return 200;
+    public Order order() {
+        return Order.METRIC;
     }
 }

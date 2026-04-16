@@ -40,4 +40,9 @@ public class KafkaConsumerMetricInterceptor implements NonReentrantInterceptor {
             metric.collectConsumeMetric(consumerRecord.topic());
         }
     }
+
+    @Override
+    public Order order() {
+        return Order.METRIC;
+    }
 }

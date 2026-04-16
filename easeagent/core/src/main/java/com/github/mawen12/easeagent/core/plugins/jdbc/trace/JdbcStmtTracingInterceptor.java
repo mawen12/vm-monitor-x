@@ -14,7 +14,9 @@ import com.github.mawen12.easeagent.core.plugins.jdbc.common.SqlInfo;
 import java.sql.Connection;
 
 @EaseAgentClassLoader
-public class JdbcStmtTracingInterceptor implements NonReentrantInterceptor {
+public enum JdbcStmtTracingInterceptor implements NonReentrantInterceptor {
+    INSTANCE;
+
     private final static Logger LOGGER = Agent.getLogger(JdbcStmtTracingInterceptor.class);
     private final static String SPAN_KEY = JdbcStmtTracingInterceptor.class.getName() + "-SPAN";
 
@@ -59,7 +61,7 @@ public class JdbcStmtTracingInterceptor implements NonReentrantInterceptor {
     }
 
     @Override
-    public int order() {
-        return 100;
+    public Order order() {
+        return Order.TRACING;
     }
 }

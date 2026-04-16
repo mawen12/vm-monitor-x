@@ -23,4 +23,10 @@ public enum SpringBootReadyInterceptor implements NonReentrantInterceptor {
             Agent.markSpringBootReady();
         }
     }
+
+
+    @Override
+    public Order order() {
+        return Order.PREPARE;
+    }
 }

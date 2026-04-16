@@ -12,6 +12,11 @@ public enum DemoInterceptor implements Interceptor {
     INSTANCE;
 
     @Override
+    public Order order() {
+        return Order.METRIC;
+    }
+
+    @Override
     public void before(MethodInfo methodInfo, Context ctx) {
         System.out.println("[agent] before the " + methodInfo.getMethod());
     }
@@ -20,4 +25,6 @@ public enum DemoInterceptor implements Interceptor {
     public void after(MethodInfo methodInfo, Context ctx) {
         System.out.println("[agent] after the " + methodInfo.getMethod());
     }
+
+
 }

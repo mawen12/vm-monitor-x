@@ -1,6 +1,7 @@
 package com.github.mawen12.easeagent.core.trace;
 
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+import com.github.mawen12.easeagent.api.trace.Scope;
 import com.github.mawen12.easeagent.api.trace.Span;
 import com.github.mawen12.easeagent.api.trace.Tracing;
 import lombok.AccessLevel;
@@ -24,10 +25,10 @@ public class SpanImpl implements Span {
         KINDS = Collections.unmodifiableMap(kinds);
     }
 
-    private final Tracing tracing;
+    private final brave.Tracing tracing;
     private final brave.Span span;
 
-    public static Span build(Tracing tracing, brave.Span span) {
+    public static Span build(brave.Tracing tracing, brave.Span span) {
         if (span == null) {
             return Span.NOOP;
         }
@@ -61,6 +62,11 @@ public class SpanImpl implements Span {
     public Span annotate(long timestamp, String value) {
         span.annotate(timestamp, value);
         return this;
+    }
+
+    @Override
+    public Scope maybeScope() {
+        return new ScopeImpl(tracing.currentTraceContext().maybeScope(span.context()));
     }
 
     @Override

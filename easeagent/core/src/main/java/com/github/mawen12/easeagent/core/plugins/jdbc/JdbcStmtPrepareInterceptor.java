@@ -50,7 +50,7 @@ public enum JdbcStmtPrepareInterceptor implements NonReentrantInterceptor {
     }
 
     @Override
-    public int order() {
-        return 20;
+    public Order order() {
+        return Order.PREPARE;
     }
 }

@@ -1,6 +1,7 @@
 package com.github.mawen12.easeagent.core.trace;
 
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+import com.github.mawen12.easeagent.api.trace.Scope;
 import com.github.mawen12.easeagent.api.trace.Span;
 import com.github.mawen12.easeagent.api.trace.Tracing;
 import com.github.mawen12.easeagent.api.utils.Null;
@@ -37,13 +38,13 @@ public class TracingImpl implements Tracing {
     public Span currentSpan() {
         Span span = Span.NOOP;
         if (tracer != null) {
-            span = SpanImpl.build(this, tracer.currentSpan());
+            span = SpanImpl.build(tracing, tracer.currentSpan());
         }
         return Null.of(span, Span.NOOP);
     }
 
     @Override
     public Span nextSpan() {
-        return SpanImpl.build(this, tracer.nextSpan());
+        return SpanImpl.build(tracing, tracer.nextSpan());
     }
 }

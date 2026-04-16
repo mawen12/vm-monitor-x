@@ -26,16 +26,22 @@ public abstract class CommonRedisInterceptor implements NonReentrantInterceptor 
 
     @Override
     public void doBefore(MethodInfo methodInfo, Context ctx) {
-
+        LOGGER.info("into redis metric");
     }
 
     @Override
     public void doAfter(MethodInfo methodInfo, Context ctx) {
+        LOGGER.info("out redis metric");
         String key = getKey(methodInfo, ctx);
-        LOGGER.info("redis key is {}", key);
-        LOGGER.info("after class<{}>.{}({})", methodInfo.getInvoker(), methodInfo.getMethod(), Arrays.toString(methodInfo.getArgs()));
+//        LOGGER.info("redis key is {}", key);
+//        LOGGER.info("after class<{}>.{}({})", methodInfo.getInvoker(), methodInfo.getMethod(), Arrays.toString(methodInfo.getArgs()));
         metric.collect(key, ContextUtils.getDuration(ctx), methodInfo.isSuccess());
     }
 
     public abstract String getKey(MethodInfo methodInfo, Context ctx);
+
+    @Override
+    public Order order() {
+        return Order.METRIC;
+    }
 }

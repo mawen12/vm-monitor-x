@@ -44,4 +44,9 @@ public class JdbcDataSourceMetricInterceptor implements NonReentrantInterceptor 
 
         metric.collectMetric(key, success, ctx);
     }
+
+    @Override
+    public Order order() {
+        return Order.METRIC;
+    }
 }

@@ -13,6 +13,8 @@ public interface Span {
 
     Span annotate(long timestamp, String value);
 
+    Scope maybeScope();
+
     Span start();
 
     Span start(long timestamp);
@@ -62,6 +64,11 @@ public interface Span {
 
         @Override
         public Span annotate(long timestamp, String value) {
+            return null;
+        }
+
+        @Override
+        public Scope maybeScope() {
             return null;
         }
 

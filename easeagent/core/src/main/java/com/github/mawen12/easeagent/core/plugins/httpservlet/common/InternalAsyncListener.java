@@ -1,4 +1,4 @@
-package com.github.mawen12.easeagent.core.plugins.httpservlet;
+package com.github.mawen12.easeagent.core.plugins.httpservlet.common;
 
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 

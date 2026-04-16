@@ -4,6 +4,8 @@ import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
 import com.github.mawen12.easeagent.api.interceptor.NonReentrantInterceptor;
+import com.github.mawen12.easeagent.core.plugins.httpservlet.common.InternalAsyncListener;
+import com.github.mawen12.easeagent.core.plugins.httpservlet.common.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

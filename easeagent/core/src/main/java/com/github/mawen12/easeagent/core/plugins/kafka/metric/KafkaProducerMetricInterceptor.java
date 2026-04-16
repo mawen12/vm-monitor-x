@@ -39,6 +39,10 @@ public class KafkaProducerMetricInterceptor implements NonReentrantInterceptor {
             MetricCallback metricCallback = (MetricCallback) callback;
             metric.collectProducerMetric(metricCallback.getTopic(), System.currentTimeMillis() - metricCallback.getStart(), methodInfo.isSuccess());
         }
+    }
 
+    @Override
+    public Order order() {
+        return Order.METRIC;
     }
 }

@@ -24,9 +24,11 @@ public abstract class AbstractClassTransformer implements ClassTransformer, Agen
 
     @Override
     public AgentBuilder build(AgentBuilder builder) {
+        // sort by order
+        this.getInterceptors().sort(Comparator.comparing(i -> i.order().getOrder()));
         // register chain
-        this.getInterceptors().sort(Comparator.comparing(Interceptor::order));
         InterceptorChainRouter.INSTANCE.add(this.getAdviceKey(), new InterceptorChain(this.getInterceptors()));
+        // register byte buddy
         return builder.type(this.getClassMatcher(), this.getClassLoaderMatcher()).transform(this);
     }
 

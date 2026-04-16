@@ -33,4 +33,9 @@ public class DoFilterMetricInterceptor extends BaseServletInterceptor {
         long end = System.currentTimeMillis();
         metric.collectMetric(key, response.getStatus(), throwable, start, end);
     }
+
+    @Override
+    public Order order() {
+        return Order.METRIC;
+    }
 }
