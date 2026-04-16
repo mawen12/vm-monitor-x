@@ -1,10 +1,8 @@
 package com.github.mawen12.easeagent.core.plugins.redis.trace;
 
-import com.github.mawen12.easeagent.api.Agent;
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
-import com.github.mawen12.easeagent.api.logging.Logger;
 import io.lettuce.core.protocol.RedisCommand;
 
 import java.util.Collection;

@@ -2,8 +2,8 @@ package com.github.mawen12.easeagent.api;
 
 import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
 import com.github.mawen12.easeagent.api.config.Config;
-import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.config.ContextManager;
+import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.logging.Logger;
 import com.github.mawen12.easeagent.api.logging.LoggerFactory;
 import com.github.mawen12.easeagent.api.metrics.MetricRegistry;

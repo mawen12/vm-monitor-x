@@ -3,7 +3,6 @@ package com.github.mawen12.easeagent.core.trace;
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.trace.Scope;
 import com.github.mawen12.easeagent.api.trace.Span;
-import com.github.mawen12.easeagent.api.trace.Tracing;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 

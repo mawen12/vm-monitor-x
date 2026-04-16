@@ -1,14 +1,17 @@
 package com.github.mawen12.easeagent.core.plugins.kafka.metric;
 
-import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
-import com.github.mawen12.easeagent.api.metrics.*;
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+import com.github.mawen12.easeagent.api.metrics.Meter;
+import com.github.mawen12.easeagent.api.metrics.MetricRegistry;
+import com.github.mawen12.easeagent.api.metrics.NameFactory;
+import com.github.mawen12.easeagent.api.metrics.ServiceMetric;
 
 import static com.github.mawen12.easeagent.api.metrics.Metric.Field.*;
 import static com.github.mawen12.easeagent.api.metrics.Metric.FieldWrapper.of;
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.*;
 import static com.github.mawen12.easeagent.api.metrics.Metric.ValueFetcher.*;
 
-@SharedToBootstrap
+@EaseAgentClassLoader
 public class KafkaMetric extends ServiceMetric {
 
     public KafkaMetric(MetricRegistry metricRegistry, NameFactory nameFactory) {

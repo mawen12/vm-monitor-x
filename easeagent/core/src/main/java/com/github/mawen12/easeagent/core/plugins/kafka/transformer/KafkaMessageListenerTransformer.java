@@ -1,6 +1,6 @@
 package com.github.mawen12.easeagent.core.plugins.kafka.transformer;
 
-import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.interceptor.Interceptor;
 import com.github.mawen12.easeagent.core.agent.spi.ClassTransformer;
 import com.github.mawen12.easeagent.core.agent.transformer.AbstractClassTransformer;
@@ -17,7 +17,7 @@ import java.util.Set;
 import static net.bytebuddy.matcher.ElementMatchers.hasSuperType;
 import static net.bytebuddy.matcher.ElementMatchers.named;
 
-@SharedToBootstrap
+@EaseAgentClassLoader
 @AutoService(ClassTransformer.class)
 public class KafkaMessageListenerTransformer extends AbstractClassTransformer {
 

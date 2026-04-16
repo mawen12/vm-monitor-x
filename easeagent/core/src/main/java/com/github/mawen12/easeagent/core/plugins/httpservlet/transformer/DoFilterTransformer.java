@@ -13,7 +13,6 @@ import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 

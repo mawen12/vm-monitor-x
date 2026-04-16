@@ -2,7 +2,10 @@ package com.github.mawen12.easeagent.core.context;
 
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
-import com.github.mawen12.easeagent.api.trace.*;
+import com.github.mawen12.easeagent.api.trace.Request;
+import com.github.mawen12.easeagent.api.trace.Setter;
+import com.github.mawen12.easeagent.api.trace.Span;
+import com.github.mawen12.easeagent.api.trace.Tracing;
 import com.github.mawen12.easeagent.api.utils.Null;
 import com.github.mawen12.easeagent.core.plugins.httpservlet.common.RequestContextImpl;
 import lombok.Getter;

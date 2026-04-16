@@ -8,11 +8,8 @@ import com.github.mawen12.easeagent.api.interceptor.InterceptorChain;
 import com.github.mawen12.easeagent.api.interceptor.InterceptorChainRouter;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
 import com.github.mawen12.easeagent.core.agent.AdviceKey;
-import com.github.mawen12.easeagent.core.context.SessionContext;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.implementation.bytecode.assign.Assigner;
-
-import java.util.concurrent.ThreadFactory;
 
 @Core("the method content in onEnter and onExit will be inject into the Dest class, and execute the method content is AppClassLoader")
 @EaseAgentClassLoader

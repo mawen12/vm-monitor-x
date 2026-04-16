@@ -1,13 +1,16 @@
 package com.github.mawen12.easeagent.core.plugins.mongodb.metric;
 
-import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
-import com.github.mawen12.easeagent.api.metrics.*;
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
+import com.github.mawen12.easeagent.api.metrics.Meter;
+import com.github.mawen12.easeagent.api.metrics.MetricRegistry;
+import com.github.mawen12.easeagent.api.metrics.NameFactory;
+import com.github.mawen12.easeagent.api.metrics.ServiceMetric;
 import com.github.mawen12.easeagent.core.metrics.LastMinutesCounterGauge;
 
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.DEFAULT;
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.ERROR;
 
-@SharedToBootstrap
+@EaseAgentClassLoader
 public class MongoMetric extends ServiceMetric {
 
     public MongoMetric(MetricRegistry metricRegistry, NameFactory nameFactory) {

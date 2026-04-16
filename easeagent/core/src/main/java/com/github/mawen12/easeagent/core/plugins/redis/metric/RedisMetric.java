@@ -1,6 +1,6 @@
 package com.github.mawen12.easeagent.core.plugins.redis.metric;
 
-import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.metrics.Meter;
 import com.github.mawen12.easeagent.api.metrics.MetricRegistry;
 import com.github.mawen12.easeagent.api.metrics.NameFactory;
@@ -10,7 +10,7 @@ import com.github.mawen12.easeagent.core.metrics.LastMinutesCounterGauge;
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.DEFAULT;
 import static com.github.mawen12.easeagent.api.metrics.Metric.SubType.ERROR;
 
-@SharedToBootstrap
+@EaseAgentClassLoader
 public class RedisMetric extends ServiceMetric {
     public static final NameFactory NAME_FACTORY = RedisNameFactorySupplier.INSTANCE.nameFactory();
 

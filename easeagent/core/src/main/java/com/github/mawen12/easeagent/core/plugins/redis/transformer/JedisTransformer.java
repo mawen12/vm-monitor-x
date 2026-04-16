@@ -1,6 +1,6 @@
 package com.github.mawen12.easeagent.core.plugins.redis.transformer;
 
-import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.interceptor.Interceptor;
 import com.github.mawen12.easeagent.api.utils.Lists;
 import com.github.mawen12.easeagent.core.agent.spi.ClassTransformer;
@@ -18,7 +18,7 @@ import java.util.Set;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
-@SharedToBootstrap
+@EaseAgentClassLoader
 @AutoService(ClassTransformer.class)
 public class JedisTransformer extends AbstractClassTransformer {
 

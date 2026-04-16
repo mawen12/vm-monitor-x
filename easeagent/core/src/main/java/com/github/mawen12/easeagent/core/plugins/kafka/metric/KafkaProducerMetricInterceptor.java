@@ -1,6 +1,6 @@
 package com.github.mawen12.easeagent.core.plugins.kafka.metric;
 
-import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
 import com.github.mawen12.easeagent.api.interceptor.NonReentrantInterceptor;
@@ -10,7 +10,7 @@ import com.github.mawen12.easeagent.core.plugins.kafka.common.AsyncCallback;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-@SharedToBootstrap
+@EaseAgentClassLoader
 public class KafkaProducerMetricInterceptor implements NonReentrantInterceptor {
     public static final KafkaProducerMetricInterceptor INSTANCE = new KafkaProducerMetricInterceptor();
 

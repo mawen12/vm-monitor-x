@@ -9,8 +9,6 @@ import com.github.mawen12.easeagent.api.metrics.Tags;
 import com.github.mawen12.easeagent.core.plugins.jdbc.common.JdbcUtils;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
 
 @EaseAgentClassLoader
 public class JdbcDataSourceMetricInterceptor implements NonReentrantInterceptor {

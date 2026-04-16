@@ -1,17 +1,15 @@
 package com.github.mawen12.easeagent.core.plugins.redis.metric;
 
-import com.github.mawen12.easeagent.api.Agent;
-import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.interceptor.MethodInfo;
-import com.github.mawen12.easeagent.api.logging.Logger;
 import com.github.mawen12.easeagent.core.plugins.redis.CommonRedisInterceptor;
 import io.lettuce.core.protocol.RedisCommand;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@SharedToBootstrap
+@EaseAgentClassLoader
 public class LettuceMetricInterceptor extends CommonRedisInterceptor {
 
     public static final LettuceMetricInterceptor INSTANCE = new LettuceMetricInterceptor();

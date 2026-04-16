@@ -1,9 +1,9 @@
 package com.github.mawen12.easeagent.core.plugins.mongodb.metric;
 
-import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.core.plugins.mongodb.common.MongoBaseInterceptor;
 
-@SharedToBootstrap
+@EaseAgentClassLoader
 public class MongoBaseMetricInterceptor extends MongoBaseInterceptor {
 
     @Override

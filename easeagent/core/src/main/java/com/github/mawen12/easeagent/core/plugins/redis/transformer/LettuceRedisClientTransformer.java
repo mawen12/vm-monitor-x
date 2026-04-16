@@ -1,6 +1,6 @@
 package com.github.mawen12.easeagent.core.plugins.redis.transformer;
 
-import com.github.mawen12.easeagent.api.annotation.SharedToBootstrap;
+import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
 import com.github.mawen12.easeagent.api.interceptor.Interceptor;
 import com.github.mawen12.easeagent.core.agent.transformer.AbstractClassTransformer;
 import net.bytebuddy.description.method.MethodDescription;
@@ -13,7 +13,7 @@ import java.util.Set;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
-@SharedToBootstrap
+@EaseAgentClassLoader
 public class LettuceRedisClientTransformer  extends AbstractClassTransformer {
 
     @Override

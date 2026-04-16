@@ -1,10 +1,9 @@
 package com.github.mawen12.easeagent.core.context;
 
-import brave.Tracer;
 import com.github.mawen12.easeagent.api.Agent;
 import com.github.mawen12.easeagent.api.annotation.EaseAgentClassLoader;
-import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.config.ContextManager;
+import com.github.mawen12.easeagent.api.context.Context;
 import com.github.mawen12.easeagent.api.trace.Tracing;
 
 @EaseAgentClassLoader("used by Bootstrap, then export to Agent#contextManager")
